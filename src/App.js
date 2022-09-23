@@ -1,58 +1,46 @@
-import { React, useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import List from "./Components/List";
+import { React, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";
+import Etusivu from "./Components/Etusivu"
+import Kirjaudu from "./Components/Kirjaudu"
+import Admin from "./Components/Admin"
 import "./App.css";
 
+function setToken(userToken) {
+  sessionStorage.setItem('token', JSON.stringify(userToken));
+}
+
+function getToken() {
+  const tokenString = sessionStorage.getItem('token');
+  const userToken = JSON.parse(tokenString);
+  return userToken?.access_token
+}
+
+export const PrivateRoute = ({ children}) => {
+  console.log(getToken())
+  const isAuthenticated = getToken();
+  if (isAuthenticated ) {
+    return children
+  }
+    
+  return <Navigate to="/kirjaudu" />
+}
+
 function App() {
-  const [inputText, setInputText] = useState("");
-  const [videosLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
-  const [videos, setVideos] = useState([]);
-  const [chapters, setChapters] = useState([]);
-
-  const baseUrl = "https://keskusteluohjelma-aihehaku.herokuapp.com/"
-
-  let inputHandler = (e) => {
-    var lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-
-  };
-
-  useEffect(() => {
-    if(videos != null){
-      fetch(baseUrl + "keskusteluohjelma?term=")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(JSON.parse(result));
-          setIsLoaded(true);
-          setVideos(JSON.parse(result));
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          setIsLoaded(true);
-        }
-      )
-    }
-}, [])
 
   return (
-    <div className="main">
-      <h1>Keskusteluohjelman aihehaku</h1>
-      <div className="search">
-        <TextField
-          id="outlined-basic"
-          onChange={inputHandler}
-          variant="outlined"
-          fullWidth
-          label="etsi aihetta"
-        />
-      </div>
-      <List input={inputText} videos={videos} />
-    </div>
-  );
+    <Router>
+        <Routes>
+          <Route path="/kirjaudu" element={<Kirjaudu setToken={setToken}/>}/>
+          <Route path="/" element={<Etusivu />}/>
+          <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}/>
+        </Routes>
+    </Router>
+  )
 }
 
 export default App;
