@@ -10,7 +10,7 @@ function Etusivu() {
   const [videos, setVideos] = useState([]);
   const [chapters, setChapters] = useState([]);
 
-  const baseUrl = "http://127.0.0.1:8000/"
+  const baseUrl = process.env.REACT_APP_BASE_URL
 
   let inputHandler = (e) => {
     var lowerCase = e.target.value.toLowerCase();
@@ -18,6 +18,8 @@ function Etusivu() {
 
   };
 
+  // haetaan kaikki videot
+  // term meinaa hakutermia mutta sitä ei atm käytetä
   useEffect(() => {
     if(videos != null){
       fetch(baseUrl + "keskusteluohjelma?term=")
@@ -28,9 +30,6 @@ function Etusivu() {
           setIsLoaded(true);
           setVideos(JSON.parse(result));
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           setIsLoaded(true);
         }

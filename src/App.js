@@ -6,8 +6,8 @@ import {
   Navigate
 } from "react-router-dom";
 import Etusivu from "./Components/Etusivu"
-import Kirjaudu from "./Components/Kirjaudu"
-import Admin from "./Components/Admin"
+import Kirjaudu from "./Components/Admin/Kirjaudu"
+import Admin from "./Components/Admin/Admin"
 import "./App.css";
 
 function setToken(userToken) {

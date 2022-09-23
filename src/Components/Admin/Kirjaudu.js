@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import "../App.css";
+import "../../App.css";
 
 export default function Kirjaudu({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const baseUrl = "http://127.0.0.1:8000/"
+  const baseUrl = process.env.REACT_APP_BASE_URL
 
   function validateForm() {
     return username.length > 0 && password.length > 0;
@@ -18,6 +18,7 @@ export default function Kirjaudu({ setToken }) {
   form_data.append('username', username)
   form_data.append('password', password)
 
+  // kirjautuminen
   async function loginUser() {
     return fetch(baseUrl + 'kirjaudu', {
       method: 'POST',
