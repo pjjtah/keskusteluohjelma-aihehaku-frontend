@@ -21,7 +21,6 @@ function getToken() {
 }
 
 export const PrivateRoute = ({ children}) => {
-  console.log(getToken())
   const isAuthenticated = getToken();
   if (isAuthenticated ) {
     return children

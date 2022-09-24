@@ -34,7 +34,7 @@ function TagAdder(props) {
     return (
         <div>
         {Object.entries(props.tags).map((item) => (
-            <Button>{item[0]}</Button>
+            <Button key={item[0]}>{item[0]}</Button>
         ))}
         </div>
 
