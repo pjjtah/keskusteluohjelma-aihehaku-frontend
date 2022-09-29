@@ -26,7 +26,7 @@ function NewTag(props) {
         onChange={inputHandler}
         variant="outlined"
         fullWidth
-        label="etsi tageja"
+        label="suodata tageja"
     />
   <TagList input={inputText} setInputText={setInputText} tags={props.tags} setTagsUpdated={props.setTagsUpdated}/>
     </div>

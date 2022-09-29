@@ -71,7 +71,7 @@ if(!tagsUpdated){
         onChange={inputHandler}
         variant="outlined"
         fullWidth
-        label="etsi aihetta"
+        label="suodata aiheita"
       />
     <AdminList input={inputText} videos={videos} tags={tags} />
         </td>

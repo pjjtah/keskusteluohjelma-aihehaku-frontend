@@ -4,8 +4,9 @@ import Button from "react-bootstrap/Button";
 function getToken() {
     const tokenString = sessionStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
+
     return userToken?.access_token
-  }
+}
 
 function TagList(props) {
     //create a new array by filtering the original array
@@ -22,14 +23,15 @@ function TagList(props) {
 
     const baseUrl = process.env.REACT_APP_BASE_URL
 
-  async function NewTag() {
-    return fetch(baseUrl + 'tagit?nimi=' + props.input, {
-      method: 'POST',
-      headers: {'Authorization': 'Bearer ' + getToken()
-      }
-    })
-      .then(data => data.json())
-  }
+    async function NewTag() {
+        return fetch(baseUrl + 'tagit?nimi=' + props.input, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + getToken()
+            }
+        })
+            .then(data => data.json())
+    }
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -37,21 +39,25 @@ function TagList(props) {
         console.log(result)
         props.setInputText('');
         props.setTagsUpdated(false);
-      }
+    }
 
-    if(filteredData.length != 0){
+    const itemsShown = 3;
+    if (filteredData.length !== 0) {
         return (
             <ul >
                 {filteredData.map((item) => (
                     <li key={item[0]} >
-                            {item[0]}
+                        {item[0]}
                     </li>
                 ))}
+                            {filteredData.length > itemsShown &&
+            <li>...</li>
+            }
             </ul>
             
         )
     }
-    else{
+    else {
         return (
             <Button onClick={handleSubmit}>Lisää {props.input} tagiksi</Button>
         )

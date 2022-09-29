@@ -53,7 +53,7 @@ h1 {
 }
 
 .search {
-  width: 30%;
+  width: 40%;
 }
 
 ul li {
@@ -62,8 +62,8 @@ ul li {
   text-align: center;
 }
 table {
-  width: 33%;
+  width: 40%;
   table-layout: fixed;
   position: absolute;
-  top: 50px;
+  top: 75px;
 }
