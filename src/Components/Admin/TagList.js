@@ -1,4 +1,4 @@
-import { React } from 'react'
+import { React, useState } from 'react'
 import Button from "react-bootstrap/Button";
 
 function getToken() {
@@ -9,6 +9,7 @@ function getToken() {
 }
 
 function TagList(props) {
+
     //create a new array by filtering the original array
     const filteredData = Object.values(props.tags).filter((el) => {
         //if no input the return the original
@@ -41,7 +42,6 @@ function TagList(props) {
         props.setTagsUpdated(false);
     }
 
-    const itemsShown = 3;
     if (filteredData.length !== 0) {
         return (
             <ul >
@@ -50,11 +50,7 @@ function TagList(props) {
                         {item[0]}
                     </li>
                 ))}
-                            {filteredData.length > itemsShown &&
-            <li>...</li>
-            }
             </ul>
-            
         )
     }
     else {

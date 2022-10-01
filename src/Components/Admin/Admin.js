@@ -7,8 +7,10 @@ import "../../App.css";
 
 export default function Admin() {
 
-  const [inputText, setInputText] = useState("");
+  const [videoInputText, setVideoInputText] = useState("");
+  const [tagInputText, setTagInputText] = useState("");
   const [tags, setTags] = useState([]);
+  const [filteredTags, setFilteredTags] = useState();
   const [videosLoaded, setIsLoaded] = useState(false);
   const [videos, setVideos] = useState([]);
   const [tagsUpdated, setTagsUpdated] = useState(false);
@@ -17,7 +19,7 @@ export default function Admin() {
 
   let inputHandler = (e) => {
     var lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
+    setVideoInputText(lowerCase);
 
   };
 
@@ -25,7 +27,7 @@ export default function Admin() {
 // haetaan kaikki videot
 // term meinaa hakutermia mutta sitä ei atm käytetä
 useEffect(() => {
-  if(videos.length == 0){
+  if(videos.length === 0){
     fetch(baseUrl + "keskusteluohjelma?term=")
     .then(res => res.json())
     .then(
@@ -49,6 +51,9 @@ if(!tagsUpdated){
       
       setTags(JSON.parse(result));
       setTagsUpdated(true);
+      if(filteredTags == undefined){
+        setFilteredTags(JSON.parse(result));
+      }
     },
     (error) => {
       setIsLoaded(true);
@@ -58,6 +63,21 @@ if(!tagsUpdated){
 }
 
   }, [tagsUpdated])
+
+  useEffect(()=> {
+        //create a new array by filtering the original array
+        const filteredData = Object.entries(tags).filter((el) => {
+          //if no input the return the original
+          if (tagInputText === '') {
+              return el;
+          }
+          //return the item which contains the user input
+          else {
+              return el[0].toLowerCase().includes(tagInputText)
+          }
+      })
+      setFilteredTags(Object.fromEntries(filteredData))
+  }, [tagInputText])
 
   return (
     <div>
@@ -73,10 +93,10 @@ if(!tagsUpdated){
         fullWidth
         label="suodata aiheita"
       />
-    <AdminList input={inputText} videos={videos} tags={tags} />
+    <AdminList input={videoInputText} videos={videos} tags={filteredTags} />
         </td>
       <td style={{verticalAlign: 'top'}}>
-      <NewTag tags={tags} tagsUpdated={tagsUpdated} setTagsUpdated={setTagsUpdated}/>
+      <NewTag tags={tags} tagsUpdated={tagsUpdated} setTagsUpdated={setTagsUpdated} setTagInputText={setTagInputText} tagInputText={tagInputText}/>
       </td>
       </tr>
       </tbody>

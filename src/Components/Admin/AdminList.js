@@ -1,7 +1,15 @@
 import { React, useState } from 'react'
 import TagAdder from "./TagAdder";
+import Button from "react-bootstrap/Button";
 
 function AdminList(props) {
+
+    const [itemsShown, setItemsShown] = useState(10);
+
+    function moreVideos() {
+        setItemsShown(itemsShown + 5)
+    }
+
     //create a new array by filtering the original array
     const filteredData = props.videos.filter((el) => {
         //if no input the return the original
@@ -13,7 +21,6 @@ function AdminList(props) {
             return el[1].toLowerCase().includes(props.input)
         }
     })
-    const itemsShown = 10;
     return (
         <ul >
             {filteredData.slice(0, itemsShown).map((item) => (
@@ -25,9 +32,11 @@ function AdminList(props) {
                 </li>
 
             ))}
-            {filteredData.length > itemsShown &&
-                <li>...</li>
-            }
+                {filteredData.length > itemsShown &&
+                    <Button key="more" onClick={moreVideos} style={{
+                        backgroundColor: "#ADD8E6",
+                    }}>Näytä lisää</Button>
+                }
         </ul>
     )
 }

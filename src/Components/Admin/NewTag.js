@@ -7,12 +7,9 @@ import "../../App.css";
 
 function NewTag(props) {
 
-  const [inputText, setInputText] = useState("");
-  const baseUrl = process.env.REACT_APP_BASE_URL
-
   let inputHandler = (e) => {
     var lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
+    props.setTagInputText(lowerCase);
 
   };
 
@@ -28,7 +25,7 @@ function NewTag(props) {
         fullWidth
         label="suodata tageja"
     />
-  <TagList input={inputText} setInputText={setInputText} tags={props.tags} setTagsUpdated={props.setTagsUpdated}/>
+  <TagList input={props.tagInputText} setInputText={props.setTagInputText} tags={props.tags} setTagsUpdated={props.setTagsUpdated}/>
     </div>
 
   );
