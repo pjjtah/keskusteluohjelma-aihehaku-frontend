@@ -62,8 +62,8 @@ ul li {
   text-align: center;
 }
 table {
-  width: 40%;
-  min-width: 400px;
+  width: 45%;
+  min-width: 500px;
   table-layout: fixed;
   position: absolute;
   top: 75px;

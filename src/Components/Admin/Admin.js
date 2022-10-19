@@ -4,6 +4,7 @@ import NewTag from "./NewTag"
 import TextField from "@mui/material/TextField";
 
 import "../../App.css";
+import TagDownloader from "./TagDownloader";
 
 export default function Admin() {
 
@@ -48,7 +49,6 @@ if(!tagsUpdated){
   .then(res => res.json())
   .then(
     (result) => {
-      
       setTags(JSON.parse(result));
       setTagsUpdated(true);
       if(filteredTags == undefined){
@@ -98,7 +98,15 @@ if(!tagsUpdated){
       <td style={{verticalAlign: 'top'}}>
       <NewTag tags={tags} tagsUpdated={tagsUpdated} setTagsUpdated={setTagsUpdated} setTagInputText={setTagInputText} tagInputText={tagInputText}/>
       </td>
+      <td style={{verticalAlign: 'top', marginLeft: '150px'}}>
+      <p>-suodata tageja ja videoita kirjoittamalla hakukenttiin</p>
+      <p>-mikäli tagia ei vielä ole, voit lisätä sen kirjoittamalla tagin nimen kokonaisuudessaan hakukenttään</p>
+      <p>-klikkaa tagin nimeä videoklipin alla, niin se lisätään kyseisen videon alle. klikkaamalla jo valittua tagia se poistetaan klipistä</p>
+      <TagDownloader tags={tags}></TagDownloader>
+        </td>
       </tr>
+
+
       </tbody>
     </table>
     </div>
