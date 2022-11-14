@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import AdminList from "./AdminList";
+import SuggestionList from "./SuggestionList";
 import NewTag from "./NewTag"
 import TextField from "@mui/material/TextField";
 
@@ -15,6 +16,7 @@ export default function Admin() {
   const [videosLoaded, setIsLoaded] = useState(false);
   const [videos, setVideos] = useState([]);
   const [tagsUpdated, setTagsUpdated] = useState(false);
+  const [suggestions, setSuggestions] = useState([])
 
   const baseUrl = process.env.REACT_APP_BASE_URL
 
@@ -64,6 +66,23 @@ if(!tagsUpdated){
 
   }, [tagsUpdated])
 
+  // haetaan kaikki ehdotukset
+useEffect(() => {
+  if(!tagsUpdated){
+    fetch(baseUrl + "ehdotukset")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        setSuggestions(JSON.parse(result));
+      },
+      (error) => {
+        setIsLoaded(true);
+      }
+    )
+  }
+  
+    }, [])
+
   useEffect(()=> {
         //create a new array by filtering the original array
         const filteredData = Object.entries(tags).filter((el) => {
@@ -103,6 +122,10 @@ if(!tagsUpdated){
       <p>-mikäli tagia ei vielä ole, voit lisätä sen kirjoittamalla tagin nimen kokonaisuudessaan hakukenttään</p>
       <p>-klikkaa tagin nimeä videoklipin alla, niin se lisätään kyseisen videon alle. klikkaamalla jo valittua tagia se poistetaan klipistä</p>
       <TagDownloader tags={tags}></TagDownloader>
+        </td>
+        <td style={{verticalAlign: 'top'}}>
+          <h3>Ehdotukset:</h3>
+          <SuggestionList suggestions={suggestions} />
         </td>
       </tr>
 

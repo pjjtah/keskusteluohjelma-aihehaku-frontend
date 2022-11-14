@@ -22,9 +22,7 @@ function TagAdder(props) {
 
 
     const [getOpen, setOpen] = useState(false);
-
     const [getLoading, setLoading] = useState(false);
-
     const baseUrl = process.env.REACT_APP_BASE_URL
 
     // tagin lisääminen videoon
@@ -76,20 +74,45 @@ function TagAdder(props) {
         return (
             <ClipLoader />)
       }
-    return (
-        <div>
 
-        {Object.entries(props.tags).map((item) => (
-            selectedTags.includes(item[0])  ?
+    function splitTagged(array, filter) {
+        let tagged = [], untagged = [];
+        array.forEach((e) => (filter(e) ? tagged : untagged).push(e));
+        return [ tagged, untagged];
+    }
+
+      const [tagged, untagged] = splitTagged(Object.entries(props.tags), e => selectedTags.includes(e[0]));
+      console.log(tagged);
+      console.log(untagged);
+
+      if(getOpen){
+        return (
+            <div>
+            {tagged.map((item) => (
+                <Button key={item[0]}   onClick={(e) => handleDelete(item[0], e)}  style={{
+                    backgroundColor: "#90EE90",
+                }}>{item[0]}</Button>
+            ))}
+            {untagged.map((item) => (
+                <Button key={item[0]} onClick={(e) => handleSubmit(item[0], e)}>{item[0]}</Button>
+            ))}
+                    <Button onClick={(e) => setOpen(false)}>-</Button>
+            </div>
+        )
+      }
+      else{
+        return(
+        <div>
+        {tagged.map((item) => (
             <Button key={item[0]}   onClick={(e) => handleDelete(item[0], e)}  style={{
                 backgroundColor: "#90EE90",
-            }}>{item[0]}</Button> :
-            <Button key={item[0]} onClick={(e) => handleSubmit(item[0], e)}>{item[0]}</Button>
+            }}>{item[0]}</Button>
         ))}
+        <Button onClick={(e) => setOpen(true)}>+</Button>
         </div>
+        )
+      }
 
-        
-    )
 }
 
 export default TagAdder
