@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "kaarle";
+  src: local("kaarle"),
+    url("./fonts/kk.otf");
+}
+
 .App {
   text-align: center;
 }
@@ -61,15 +67,40 @@ h3 {
   width: 40%;
 }
 
-ul li {
-  font-size: 20px;
-  list-style-type : none;
-  text-align: center;
+.items {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
+
+ul {
+  width: 20%;
+  padding-inline: 0;
+}
+
+ul li {
+  width: auto;
+  height: auto;
+  margin: 2.5px 2.5px 5px 2.5px;
+  padding: 5px;
+  font-size:22px;
+  font-weight: bold;
+  list-style-type : none;
+  border: 6px solid black;
+  max-height: 150px;
+  align-self: auto;
+  font-family: "kaarle";
+}
+
+li a {
+  color: black;
+  text-decoration: none;
+}
+
 table {
+  top: 75px;
   width: 45%;
   min-width: 500px;
   table-layout: fixed;
   position: absolute;
-  top: 75px;
 }
