@@ -33,17 +33,28 @@ function List(props) {
         console.log(result)
         setSuggested(true);
     }
+
     if (filteredData.length !== 0) {
+      const chunkSize = filteredData.length / 5 << 0;
+      const groups = filteredData.map((e, i) => { 
+          return i % chunkSize === 0 ? filteredData.slice(i, i + chunkSize) : null; 
+      }).filter(e => { return e; });
+      console.log(groups)
+
         return (
-            <ul >
-                {filteredData.map((item) => (
-                    <li key={item[2]} >
+            <div className='items'>
+              {groups.map((items) => (
+                <ul>
+                 {items.map((item) => (
+                    <li key={item[2]}>
                         <a href={item[2]} target="_blank" rel="noreferrer">
                             {item[1]}
                         </a>
                     </li>
-                ))}
-            </ul>
+                 ))}
+                </ul>
+              ))}
+            </div>
         )
     }
     if (suggested){
