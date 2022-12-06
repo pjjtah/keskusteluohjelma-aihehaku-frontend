@@ -39,14 +39,13 @@ function Etusivu() {
 
   return (
     <div className="main">
-      <h1>Keskusteluohjelman aihehaku</h1>
+      {/* Jos ei näytetä otsikkoa, H1 piilotettuna johonkn? */}
+      {/* <h1>Keskusteluohjelman aihehaku</h1> */}
       <div className="search">
-        <TextField
-          id="outlined-basic"
+        <input
           onChange={inputHandler}
-          variant="outlined"
-          fullWidth
-          label="etsi aihetta"
+          placeholder="ETSI AIHETTA"
+          class="textBox"
         />
       </div>
       <List input={inputText} videos={videos} />
