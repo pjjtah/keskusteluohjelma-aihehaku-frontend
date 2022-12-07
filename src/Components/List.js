@@ -1,4 +1,4 @@
-import { React, useState, useCallback } from 'react'
+import { React, useState } from 'react'
 import Button from "react-bootstrap/Button";
 
 function List(props) {
@@ -30,12 +30,12 @@ function List(props) {
   const handleSubmit = async e => {
     e.preventDefault();
     const result = await NewSuggestion();
-    console.log(result)
+    // console.log(result)
     setSuggested(true);
   }
 
-  let fontSize = 10;
-  async function getFontSize(textLenght) {
+  let fontSize = 16;
+  const getFontSize = (textLenght) => {
     if (textLenght <= 5) fontSize = 35;
     if (textLenght > 5 && textLenght < 10) fontSize = 30;
     if (textLenght >= 10 && textLenght < 20) fontSize = 25;
@@ -46,7 +46,7 @@ function List(props) {
   }
 
   if (filteredData.length !== 0) {
-    const chunkSize = filteredData.length / 5 << 0;
+    const chunkSize = Math.ceil( filteredData.length / 5);
     const groups = filteredData.map((e, i) => { 
       return i % chunkSize === 0 ? filteredData.slice(i, i + chunkSize) : null; 
     }).filter(e => { return e; });
@@ -54,9 +54,9 @@ function List(props) {
     return (
       <div className='items'>
         {groups.map((items) => (
-          <ul>
+          <ul key={items}>
             {items.map((item) => (
-              <li key={item[2]} className="textBox">
+              <li key={items.indexOf(item)} className="textBox">
                 <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1].length)} style={{ fontSize: `${fontSize}px` }}>
                   {item[1]}
                 </a>

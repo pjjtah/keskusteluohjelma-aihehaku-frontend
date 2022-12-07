@@ -72,39 +72,40 @@ h3 {
   padding: 15px;
   font-size: 25px;
   text-align: center;
-  text-transform: uppercase;
   box-sizing: border-box;
+  text-transform: uppercase;
 }
 
 ::-webkit-input-placeholder {
-  color: black;
   opacity: 1;
+  color: black;
 }
 
 .items {
   width: 100%;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  flex-direction: row;
 }
 
 ul {
   width: 20%;
-  padding-inline: 0;
   margin-block: 0;
+  padding-inline: 0;
 }
 
 .textBox {
   width: auto;
   height: auto;
-  margin: 2.5px 2.5px 5px 2.5px;
-  padding: 10px 5px 5px;
+  align-self: auto;
+  overflow: hidden;
   font-weight: bold;
+  font-family: "kaarle";
+  padding: 10px 5px 5px;
   list-style-type : none;
   border: 6px solid black;
-  align-self: auto;
-  font-family: "kaarle";
-  overflow: hidden;
+  margin: 2.5px 2.5px 5px 2.5px;
+
 }
 
 li a {
@@ -117,23 +118,23 @@ table {
   top: 75px;
   width: 45%;
   min-width: 500px;
-  table-layout: fixed;
   position: absolute;
+  table-layout: fixed;
 }
 
 button {
-  background: black;
   color: white;
-  padding: 10px 10px;
   font-size: 18px;
-  border: 6px solid black;
   cursor: pointer;
+  padding: 10px 10px;
+  background: black;
+  border: 6px solid black;
 }
 
 button:hover {
-  border: 6px solid black;
   color: black;
   background: white;
+  border: 6px solid black;
 }
 
 @media only screen and (max-width: 900px) {
