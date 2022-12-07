@@ -26,7 +26,7 @@ function Etusivu() {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(JSON.parse(result));
+          // console.log(JSON.parse(result));
           setIsLoaded(true);
           setVideos(JSON.parse(result));
         },
@@ -39,14 +39,18 @@ function Etusivu() {
 
   return (
     <div className="main">
+      <div className="header">
+      <p className="logo">, KAARLE.</p>
       {/* Jos ei näytetä otsikkoa, H1 piilotettuna johonkn? */}
       {/* <h1>Keskusteluohjelman aihehaku</h1> */}
+      {/* TODO siirretään oikeeseen yläkulmaan 2 sarakkeen levyseksi */}
       <div className="search">
         <input
           onChange={inputHandler}
           placeholder="ETSI AIHETTA"
-          class="textBox"
+          className="textBox"
         />
+      </div>
       </div>
       <List input={inputText} videos={videos} />
     </div>

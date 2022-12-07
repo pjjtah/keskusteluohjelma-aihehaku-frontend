@@ -34,15 +34,15 @@ function List(props) {
     setSuggested(true);
   }
 
-  let fontSize = 16;
+  let fontSize = 38;
   const getFontSize = (textLenght) => {
-    if (textLenght <= 5) fontSize = 35;
-    if (textLenght > 5 && textLenght < 10) fontSize = 30;
-    if (textLenght >= 10 && textLenght < 20) fontSize = 25;
-    if (textLenght >= 20 && textLenght < 40) fontSize = 20;
-    if (textLenght >= 40 && textLenght < 50) fontSize = 16;
-    if (textLenght >= 50 && textLenght < 800) fontSize = 14;
-    if (textLenght >= 80) fontSize = 12;
+    if (textLenght <= 5) fontSize = 80;
+    if (textLenght > 5 && textLenght < 10) fontSize = 80;
+    if (textLenght >= 10 && textLenght < 20) fontSize = 60;
+    if (textLenght >= 20 && textLenght < 40) fontSize = 50;
+    if (textLenght >= 40 && textLenght < 50) fontSize = 40;
+    if (textLenght >= 50 && textLenght < 800) fontSize = 30;
+    if (textLenght >= 80) fontSize = 18;
   }
 
   if (filteredData.length !== 0) {
@@ -59,6 +59,10 @@ function List(props) {
               <li key={items.indexOf(item)} className="textBox">
                 <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1].length)} style={{ fontSize: `${fontSize}px` }}>
                   {item[1]}
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
                 </a>
               </li>
             ))}
