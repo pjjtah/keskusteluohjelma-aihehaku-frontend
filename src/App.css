@@ -124,7 +124,6 @@ ul {
   height: auto;
   cursor: pointer;
   align-self: auto;
-  overflow: hidden;
   font-family: "kaarle";
   list-style-type : none;
   border: 10px solid black;
@@ -136,7 +135,7 @@ ul {
 }
 
 li a {
-  width: 100%;
+  width: 80%;
   height: 100%;
   max-width: 450px;
   color: black;

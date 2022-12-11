@@ -34,15 +34,40 @@ function List(props) {
     setSuggested(true);
   }
 
+  function findLongestWord(str) {
+    var strSplit = str.split(' ');
+    var longestWord = strSplit.sort(function(a, b) { 
+      return b.length - a.length;
+    });
+
+    return longestWord[0].length; 
+  }
+
   let fontSize = 38;
-  const getFontSize = (textLenght) => {
-    if (textLenght <= 5) fontSize = 80;
-    if (textLenght > 5 && textLenght < 10) fontSize = 80;
-    if (textLenght >= 10 && textLenght < 20) fontSize = 60;
-    if (textLenght >= 20 && textLenght < 40) fontSize = 50;
-    if (textLenght >= 40 && textLenght < 50) fontSize = 40;
-    if (textLenght >= 50 && textLenght < 800) fontSize = 30;
-    if (textLenght >= 80) fontSize = 18;
+  const getFontSize = (text) => {
+    let longestWord = findLongestWord(text)
+    if(longestWord < 6){
+      fontSize = 50
+    }
+    if(longestWord < 10){
+      fontSize = 40
+    }
+    else if(longestWord < 14){
+      fontSize = 30
+    }
+    else if(longestWord < 16){
+      fontSize = 25
+    }
+    else if(longestWord < 24){
+      fontSize = 17
+    }
+    else if(longestWord < 28){
+      fontSize = 14
+    }
+    else if(longestWord >= 28){
+      fontSize = 12
+    }
+
   }
 
   if (filteredData.length !== 0) {
@@ -57,7 +82,7 @@ function List(props) {
           <ul key={items}>
             {items.map((item) => (
               <li key={items.indexOf(item)} className="textBox">
-                <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1].length)} style={{ fontSize: `${fontSize}px` }}>
+                <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
                   {item[1]}
                   <br></br>
                   <br></br>
