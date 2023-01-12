@@ -1,17 +1,11 @@
 import { React, useState, useEffect } from "react";
 import TaggingList from "./TaggingList";
-import SuggestionList from "./SuggestionList";
-import NewTag from "./NewTag"
-import TextField from "@mui/material/TextField";
+import Search from "../Search";
 
 import "../../App.css";
-import TagDownloader from "./TagDownloader";
 
 export default function AdminNew() {
 
-const [inputText, setInputText] = useState("");
-  const [videoInputText, setVideoInputText] = useState("");
-  const [tagInputText, setTagInputText] = useState("");
   const [tags, setTags] = useState([]);
   const [filteredTags, setFilteredTags] = useState();
   const [videosLoaded, setIsLoaded] = useState(false);
@@ -21,30 +15,10 @@ const [inputText, setInputText] = useState("");
 
   const baseUrl = process.env.REACT_APP_BASE_URL
 
-  let inputHandler = (e) => {
-    var lowerCase = e.target.value.toLowerCase();
-    setVideoInputText(lowerCase);
-
-  };
-
-  const searchTerm = (e) => {
-    fetch(baseUrl + "keskusteluohjelma?term=" + videoInputText) 
-    .then(res => res.json())
-    .then(
-      (result) => {
-        setIsLoaded(true);
-        setVideos(JSON.parse(result));
-        setVideoInputText("");
-      },
-      (error) => {
-        setIsLoaded(true);
-      }
-    )
-
-}
 // haetaan kaikki videot
 // term meinaa hakutermia mutta sitä ei atm käytetä
 useEffect(() => {
+    console.log(videos);
   if(videos.length === 0){
     fetch(baseUrl + "keskusteluohjelma?term=")
     .then(res => res.json())
@@ -98,21 +72,6 @@ useEffect(() => {
   
     }, [])
 
-  useEffect(()=> {
-        //create a new array by filtering the original array
-        const filteredData = Object.entries(tags).filter((el) => {
-          //if no input the return the original
-          if (tagInputText === '') {
-              return el;
-          }
-          //return the item which contains the user input
-          else {
-              return el[0].toLowerCase().includes(tagInputText)
-          }
-      })
-      setFilteredTags(Object.fromEntries(filteredData))
-  }, [tagInputText])
-
   return (
     <div className="main">
       <div className="header">
@@ -120,16 +79,9 @@ useEffect(() => {
       {/* Jos ei näytetä otsikkoa, H1 piilotettuna johonkn? */}
       {/* <h1>Keskusteluohjelman aihehaku</h1> */}
       {/* TODO siirretään oikeeseen yläkulmaan 2 sarakkeen levyseksi */}
-      <div className="search">
-        <input
-          onChange={inputHandler}
-          placeholder="ETSI AIHETTA"
-          className="textBox"
-        />
-        <button onClick={searchTerm}>ETSI</button>
+      <Search setIsLoaded={setIsLoaded} setVideos={setVideos}></Search>
       </div>
-      </div>
-      <TaggingList input={inputText} videos={videos} tags={tags} setTagsUpdated={setTagsUpdated}/>
+      <TaggingList videos={videos} tags={tags} setTagsUpdated={setTagsUpdated}/>
     </div>
   );
   }

@@ -5,19 +5,8 @@ import TagAdder from "./TagAdder";
 function TaggingList(props) {
 
   const baseUrl = process.env.REACT_APP_BASE_URL
-  const [suggested, setSuggested] = useState(false);
 
-  //create a new array by filtering the original array
-  const filteredData = props.videos.filter((el) => {
-    //if no input the return the original
-    if (props.input === '') {
-      return el;
-    }
-    //return the item which contains the user input
-    else {
-      return el[1].toLowerCase().includes(props.input)
-    }
-  })
+  
 
   async function NewSuggestion() {
     return fetch(baseUrl + 'ehdotukset?ehdotus=' + props.input, {
@@ -28,12 +17,6 @@ function TaggingList(props) {
     .then(data => data.json())
   }
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const result = await NewSuggestion();
-    // console.log(result)
-    setSuggested(true);
-  }
 
   function findLongestWord(str) {
 
@@ -83,10 +66,10 @@ function TaggingList(props) {
 
   }
 
-  if (filteredData.length !== 0) {
-    const chunkSize = Math.ceil( filteredData.length / 5);
-    const groups = filteredData.map((e, i) => { 
-      return i % chunkSize === 0 ? filteredData.slice(i, i + chunkSize) : null; 
+  if (props.videos.length !== 0) {
+    const chunkSize = Math.ceil( props.videos.length / 5);
+    const groups = props.videos.map((e, i) => { 
+      return i % chunkSize === 0 ? props.videos.slice(i, i + chunkSize) : null; 
     }).filter(e => { return e; });
 
     return (
@@ -97,27 +80,18 @@ function TaggingList(props) {
               <li key={items.indexOf(item)} className="textBox">
                 <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
                   {item[1].replace("/", "/ ")}
+                  </a>
                   <br></br>
                   <br></br>
                   <br></br>
                   <br></br>
-                </a>
+
                 <TagAdder videoId={item[2].slice(17, item[2].indexOf("?"))} videoTime={item[2].slice(item[2].indexOf("=")+1)} tags={props.tags} setTagsUpdated={props.setTagsUpdated}></TagAdder>
               </li>
             ))}
           </ul>
         ))}
       </div>
-    )
-  }
-  if (suggested){
-    return(
-      <p>Kiitos ehdotuksestasi.</p>
-    )
-  }
-  else {
-    return (
-      <Button onClick={handleSubmit}>Ehdota {props.input} </Button>
     )
   }
 }

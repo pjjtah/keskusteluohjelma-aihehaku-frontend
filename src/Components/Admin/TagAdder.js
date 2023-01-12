@@ -60,10 +60,11 @@ function TagAdder(props) {
 
         // tagin poistaminen videolta
         async function handleDelete(tag) {
+            console.log(tag)
             setLoading(true);
             const result = await DeleteTag(tag);
-            
-            setSelectedTags(selectedTags.filter(item => item !== tag));
+            selectedTags.pop(tag);
+            resetTags();
             setLoading(false);
         }
 
@@ -121,7 +122,6 @@ function TagAdder(props) {
             }
         })
             .then(data => data.json())
-            .then(setLoading(false))
     }
     const openMenu = (o) => {
         resetTags();
@@ -167,7 +167,7 @@ function TagAdder(props) {
     />
     <Button onClick={(e) => openMenu(false)}>-</Button>
             {tagged.map((item) => (
-                <Button key={item}   onClick={(e) => handleDelete(item, e)}  style={{
+                <Button key={item}   onClick={(e) => handleDelete(item[0], e)}  style={{
                     backgroundColor: "#90EE90",
                 }}>{item[0]}</Button>
             ))}
