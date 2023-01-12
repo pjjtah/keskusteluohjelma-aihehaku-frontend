@@ -35,7 +35,7 @@ export default function Kirjaudu({ setToken }) {
     e.preventDefault();
     const token = await loginUser();
     setToken(token);
-    nav("/admin");
+    nav("/admin2");
   }
 
   return (

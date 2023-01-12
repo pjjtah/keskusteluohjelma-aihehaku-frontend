@@ -8,6 +8,7 @@ import {
 import Etusivu from "./Components/Etusivu"
 import Kirjaudu from "./Components/Admin/Kirjaudu"
 import Admin from "./Components/Admin/Admin"
+import AdminNew from "./Components/Admin/AdminNew"
 import "./App.css";
 
 function setToken(userToken) {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/kirjaudu" element={<Kirjaudu setToken={setToken}/>}/>
           <Route path="/" element={<Etusivu />}/>
           <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}/>
+          <Route path="/admin2" element={<PrivateRoute><AdminNew /></PrivateRoute>}/>
         </Routes>
     </Router>
   )

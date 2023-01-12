@@ -18,24 +18,40 @@ function Etusivu() {
 
   };
 
-  // haetaan kaikki videot
-  // term meinaa hakutermia mutta sitä ei atm käytetä
-  useEffect(() => {
-    if(videos != null){
-      fetch(baseUrl + "keskusteluohjelma?term=")
+  const searchTerm = (e) => {
+      fetch(baseUrl + "keskusteluohjelma?term=" + inputText) 
       .then(res => res.json())
       .then(
         (result) => {
-          // console.log(JSON.parse(result));
           setIsLoaded(true);
           setVideos(JSON.parse(result));
+          setInputText("");
+          console.log(e)
         },
         (error) => {
           setIsLoaded(true);
         }
       )
-    }
+
+  }
+
+  // haetaan kaikki videot
+  useEffect(() => {
+      fetch(baseUrl + "keskusteluohjelma?term=") 
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setVideos(JSON.parse(result));
+          console.log(JSON.parse(result))
+        },
+        (error) => {
+          setIsLoaded(true);
+        }
+      )
+
 }, [])
+
 
   return (
     <div className="main">
@@ -50,6 +66,7 @@ function Etusivu() {
           placeholder="ETSI AIHETTA"
           className="textBox"
         />
+        <button onClick={searchTerm}>ETSI</button>
       </div>
       </div>
       <List input={inputText} videos={videos} />

@@ -1,7 +1,8 @@
 import { React, useState } from 'react'
 import Button from "react-bootstrap/Button";
+import TagAdder from "./TagAdder";
 
-function List(props) {
+function TaggingList(props) {
 
   const baseUrl = process.env.REACT_APP_BASE_URL
   const [suggested, setSuggested] = useState(false);
@@ -101,6 +102,7 @@ function List(props) {
                   <br></br>
                   <br></br>
                 </a>
+                <TagAdder videoId={item[2].slice(17, item[2].indexOf("?"))} videoTime={item[2].slice(item[2].indexOf("=")+1)} tags={props.tags} setTagsUpdated={props.setTagsUpdated}></TagAdder>
               </li>
             ))}
           </ul>
@@ -120,4 +122,4 @@ function List(props) {
   }
 }
 
-export default List
+export default TaggingList

@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
-import { React, useState } from 'react'
+import { React, useState, useEffect  } from 'react'
+import TextField from "@mui/material/TextField";
 import ClipLoader from "react-spinners/ClipLoader";
 
 function TagAdder(props) {
@@ -10,8 +11,14 @@ function TagAdder(props) {
     
         return userToken?.access_token
     }
+    
 
     const [selectedTags, setSelectedTags] = useState([]);
+    const [tagInputText, setTagInputText] = useState("");
+    const [filteredTags, setFilteredTags] = useState([]);
+    const [untagged, setUntagged] = useState([]);
+    const [tagged, setTagged] = useState([]);
+    
 
     if(selectedTags.length== 0){
         Object.entries(props.tags).map((item) => (
@@ -20,10 +27,25 @@ function TagAdder(props) {
         )
     }
 
-
     const [getOpen, setOpen] = useState(false);
     const [getLoading, setLoading] = useState(false);
     const baseUrl = process.env.REACT_APP_BASE_URL
+
+    useEffect(()=> {
+        //create a new array by filtering the original array
+        const filteredData = Object.entries(props.tags).filter((el) => {
+          //if no input the return the original
+          if (tagInputText === '') {
+              return el;
+          }
+          //return the item which contains the user input
+          else {
+              return el[0].toLowerCase().includes(tagInputText)
+          }
+      })
+      setFilteredTags(Object.fromEntries(filteredData))
+      resetTags();
+  }, [tagInputText])
 
     // tagin lisääminen videoon
     async function handleSubmit(tag) {
@@ -31,6 +53,8 @@ function TagAdder(props) {
         const result = await Tag(tag);
 
         selectedTags.push(tag)
+        tagged.push([tag,tag])
+        resetTags();
         setLoading(false);
     }
 
@@ -51,9 +75,45 @@ function TagAdder(props) {
             }
         })
             .then(data => data.json())
+
     }
 
+    async function NewTag() {
+        return fetch(baseUrl + 'tagit?nimi=' + tagInputText, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + getToken()
+            }
+        })
+            .then(data => data.json())
+    }
+    const newTag = async e => {
+        setLoading(true);
+        e.preventDefault();
+        const result = await NewTag();
+        setLoading(false);
+        handleSubmit(tagInputText)
+        setTagInputText('');
+        props.setTagsUpdated(false);
+        setOpen(false)
+    }
+
+    const resetTags = () => {
+        
+        let [t, u] = splitTagged(Object.entries(filteredTags), e => selectedTags.includes(e[0]));
+        setUntagged(u);
+        setTagged(t)
+    }
+
+    let inputHandler = (e) => {
+        var lowerCase = e.target.value.toLowerCase();
+        setTagInputText(lowerCase);
+    
+      };
+
     async function DeleteTag(tag) {
+
+        setLoading(true);
         return fetch(baseUrl + 'tagit/' + tag + "/" + props.videoId + "/" + props.videoTime, {
             method: 'DELETE',
             headers: {
@@ -61,13 +121,13 @@ function TagAdder(props) {
             }
         })
             .then(data => data.json())
+            .then(setLoading(false))
     }
-
-    const openMenu = () => {
-        Object.entries(props.tags).map((item) => {
-            console.log(item)
-        })
-
+    const openMenu = (o) => {
+        resetTags();
+        setOpen(o)
+        setTagInputText("");
+        
       }
 
       if(getLoading){
@@ -81,34 +141,52 @@ function TagAdder(props) {
         return [ tagged, untagged];
     }
 
-      const [tagged, untagged] = splitTagged(Object.entries(props.tags), e => selectedTags.includes(e[0]));
-      console.log(tagged);
-      console.log(untagged);
-
-      if(getOpen){
+      if(Object.keys(filteredTags).length === 0 && getOpen){
         return (
             <div>
+            <TextField
+            id="outlined-basic"
+            onChange={inputHandler}
+            variant="outlined"
+            fullWidth
+            label="suodata tageja"
+        />
+            <Button onClick={newTag}>Lisää {tagInputText} tagiksi</Button>
+            </div>
+        )
+      }
+      else if(getOpen){
+        return (
+            <div>
+                    <TextField
+        id="outlined-basic"
+        onChange={inputHandler}
+        variant="outlined"
+        fullWidth
+        label="suodata tageja"
+    />
+    <Button onClick={(e) => openMenu(false)}>-</Button>
             {tagged.map((item) => (
-                <Button key={item[0]}   onClick={(e) => handleDelete(item[0], e)}  style={{
+                <Button key={item}   onClick={(e) => handleDelete(item, e)}  style={{
                     backgroundColor: "#90EE90",
                 }}>{item[0]}</Button>
             ))}
             {untagged.map((item) => (
-                <Button key={item[0]} onClick={(e) => handleSubmit(item[0], e)}>{item[0]}</Button>
+                <Button key={item} onClick={(e) => handleSubmit(item[0], e)}>{item[0]}</Button>
             ))}
-                    <Button onClick={(e) => setOpen(false)}>-</Button>
+                    
             </div>
         )
       }
-      else{
+      else {
         return(
         <div>
-        {tagged.map((item) => (
-            <Button key={item[0]}   onClick={(e) => handleDelete(item[0], e)}  style={{
+        {selectedTags.map((item) => (
+            <Button key={item}   onClick={(e) => handleDelete(item, e)}  style={{
                 backgroundColor: "#90EE90",
-            }}>{item[0]}</Button>
+            }}>{item}</Button>
         ))}
-        <Button onClick={(e) => setOpen(true)}>+</Button>
+        <Button onClick={(e) => openMenu(true)}>+</Button>
         </div>
         )
       }
