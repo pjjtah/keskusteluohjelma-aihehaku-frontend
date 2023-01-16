@@ -171,7 +171,7 @@ function TagAdder(props) {
                     backgroundColor: "#90EE90",
                 }}>{item[0]}</Button>
             ))}
-            {untagged.map((item) => (
+            {untagged.slice(0,10).map((item) => (
                 <Button key={item} onClick={(e) => handleSubmit(item[0], e)}>{item[0]}</Button>
             ))}
                     

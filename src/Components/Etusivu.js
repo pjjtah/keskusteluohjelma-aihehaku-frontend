@@ -63,10 +63,10 @@ function Etusivu() {
       <div className="search">
         <input
           onChange={inputHandler}
-          placeholder="ETSI AIHETTA"
+          placeholder="AIHEHAKU"
           className="textBox"
         />
-        <button onClick={searchTerm}>ETSI</button>
+        <button onClick={searchTerm} className="searchButton">ETSI</button>
       </div>
       </div>
       <List input={inputText} videos={videos} />

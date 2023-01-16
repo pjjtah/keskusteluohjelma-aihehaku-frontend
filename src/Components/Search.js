@@ -36,7 +36,7 @@ function Search(props) {
           placeholder="ETSI AIHETTA"
           className="textBox"
         />
-        <button onClick={() => searchTerm(videoInputText)}>ETSI</button>
+        <button onClick={() => searchTerm(videoInputText) }className="searchButton">ETSI</button>
       </div>
   );
   }
