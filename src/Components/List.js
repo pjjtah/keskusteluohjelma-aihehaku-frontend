@@ -98,9 +98,7 @@ function List(props) {
                   {item[1].replace("/", "/ ")}
                   <br></br>
                   <br></br>
-                  <br></br>
-                  <br></br>
-                </a>
+                  <br></br>          </a>
               </li>
             ))}
           </ul>
