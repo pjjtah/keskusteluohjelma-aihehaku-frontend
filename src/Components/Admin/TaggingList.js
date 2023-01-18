@@ -66,6 +66,7 @@ function TaggingList(props) {
 
   }
 
+
   if (props.videos.length !== 0) {
     const chunkSize = Math.ceil( props.videos.length / 5);
     const groups = props.videos.map((e, i) => { 
@@ -76,8 +77,10 @@ function TaggingList(props) {
       <div className='items'>
         {groups.map((items) => (
           <ul key={items}>
+
             {items.map((item) => (
               <li key={items.indexOf(item)} className="textBox">
+
                 <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
                   {item[1].replace("/", "/ ")}
                   </a>

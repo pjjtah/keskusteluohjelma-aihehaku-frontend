@@ -20,7 +20,7 @@ export default function AdminNew() {
 useEffect(() => {
     console.log(videos);
   if(videos.length === 0){
-    fetch(baseUrl + "keskusteluohjelma?term=")
+    fetch(baseUrl + "keskusteluohjelmaAdmin?term=")
     .then(res => res.json())
     .then(
       (result) => {

@@ -14,6 +14,7 @@ function TagAdder(props) {
     
 
     const [selectedTags, setSelectedTags] = useState([]);
+    const [selectedEmojis, setSelectedEmojis] = useState([]);
     const [tagInputText, setTagInputText] = useState("");
     const [filteredTags, setFilteredTags] = useState([]);
     const [untagged, setUntagged] = useState([]);
@@ -22,8 +23,25 @@ function TagAdder(props) {
 
     if(selectedTags.length== 0){
         Object.entries(props.tags).map((item) => (
-            item.flat().includes(props.videoId + "?t=" + props.videoTime)&&
+            item.flat().includes(props.videoId + "?t=" + props.videoTime)
+            && (item[0] != "piilotettu" && 
+            item[0] != "alapeukku" && 
+            item[0] != "yläpeukku" && 
+            item[0] != "lit")
+            &&
             selectedTags.push(item[0]))
+        )
+    }
+
+    if(selectedEmojis.length== 0){
+        Object.entries(props.tags).map((item) => (
+            item.flat().includes(props.videoId + "?t=" + props.videoTime)
+            && (item[0] == "piilotettu" | 
+            item[0] == "alapeukku" || 
+            item[0] == "yläpeukku" || 
+            item[0] == "lit")
+            &&
+            selectedEmojis.push(item[0]))
         )
     }
 
@@ -51,9 +69,16 @@ function TagAdder(props) {
     async function handleSubmit(tag) {
         setLoading(true);
         const result = await Tag(tag);
-
-        selectedTags.push(tag)
-        tagged.push([tag,tag])
+        if(tag != "piilotettu" && 
+        tag != "alapeukku" && 
+        tag != "yläpeukku" && 
+        tag != "lit"){
+            selectedTags.push(tag)
+            tagged.push([tag,tag])
+        }
+        else{
+            selectedEmojis.push(tag)
+        }
         resetTags();
         setLoading(false);
     }
@@ -63,7 +88,15 @@ function TagAdder(props) {
             console.log(tag)
             setLoading(true);
             const result = await DeleteTag(tag);
-            selectedTags.pop(tag);
+            if(tag != "piilotettu" && 
+            tag != "alapeukku" && 
+            tag != "yläpeukku" && 
+            tag != "lit"){
+                selectedTags.pop(tag)
+            }
+            else{
+                selectedEmojis.pop(tag)
+            }
             resetTags();
             setLoading(false);
         }
@@ -110,7 +143,7 @@ function TagAdder(props) {
         var lowerCase = e.target.value.toLowerCase();
         setTagInputText(lowerCase);
     
-      };
+      }
 
     async function DeleteTag(tag) {
 
@@ -132,7 +165,9 @@ function TagAdder(props) {
 
       if(getLoading){
         return (
-            <ClipLoader />)
+
+            <ClipLoader />
+        )
       }
 
     function splitTagged(array, filter) {
@@ -149,9 +184,9 @@ function TagAdder(props) {
             onChange={inputHandler}
             variant="outlined"
             fullWidth
-            label="suodata tageja"
+            label="suodata"
         />
-            <Button onClick={newTag}>Lisää {tagInputText} tagiksi</Button>
+            <Button className='piilotaButton' onClick={newTag}>Lisää {tagInputText} tagiksi</Button>
             </div>
         )
       }
@@ -163,30 +198,54 @@ function TagAdder(props) {
         onChange={inputHandler}
         variant="outlined"
         fullWidth
-        label="suodata tageja"
+        label="suodata"
     />
-    <Button onClick={(e) => openMenu(false)}>-</Button>
+    <Button className='piilotaButton' onClick={(e) => openMenu(false)}>-</Button>
             {tagged.map((item) => (
-                <Button key={item}   onClick={(e) => handleDelete(item[0], e)}  style={{
-                    backgroundColor: "#90EE90",
+                <Button key={item}  className='piilotaButton' onClick={(e) => handleDelete(item[0], e)}  style={{
+                    fontWeight: "bold",
+                    color: "#000000",
                 }}>{item[0]}</Button>
             ))}
             {untagged.slice(0,10).map((item) => (
-                <Button key={item} onClick={(e) => handleSubmit(item[0], e)}>{item[0]}</Button>
+                <Button key={item} className='piilotaButton' onClick={(e) => handleSubmit(item[0], e)} style={{
+                    color: "#000000",
+                }}>{item[0]}</Button>
             ))}
-                    
+            <Button onClick={newTag} className='piilotaButton' style={{
+                    color: "#000000",
+                }}>Lisää {tagInputText} tagiksi</Button>   
             </div>
         )
       }
       else {
         return(
         <div>
+            {selectedEmojis.includes("piilotettu") ? <Button className='piilotaButton' onClick={(e) => handleDelete("piilotettu", e)} style={{
+                    backgroundColor: "#D3D3D3",}}>❌</Button> : (
+            <Button className='piilotaButton' onClick={(e) => handleSubmit("piilotettu", e)}>❌</Button>)}
+
+            {selectedEmojis.includes("alapeukku") ? <Button className='piilotaButton' onClick={(e) => handleDelete("alapeukku", e)} style={{
+                    backgroundColor: "#D3D3D3",}}>👎</Button> : (
+            <Button className='piilotaButton' onClick={(e) => handleSubmit("alapeukku", e)}>👎</Button>)}
+
+            {selectedEmojis.includes("yläpeukku") ? <Button className='piilotaButton' onClick={(e) => handleDelete("yläpeukku", e)} style={{
+                    backgroundColor: "#D3D3D3",}}>👍</Button> : (
+            <Button className='piilotaButton' onClick={(e) => handleSubmit("yläpeukku", e)}>👍</Button>)}
+
+            {selectedEmojis.includes("lit") ? <Button className='piilotaButton' onClick={(e) => handleDelete("lit", e)} style={{
+                    backgroundColor: "#D3D3D3",}}>🔥</Button> : (
+            <Button className='piilotaButton' onClick={(e) => handleSubmit("lit", e)}>🔥</Button>)}
+
         {selectedTags.map((item) => (
-            <Button key={item}   onClick={(e) => handleDelete(item, e)}  style={{
-                backgroundColor: "#90EE90",
+            <Button key={item}  className='piilotaButton' onClick={(e) => handleDelete(item, e)}  style={{
+                fontWeight: "bold",
+                color: "#000000"
             }}>{item}</Button>
         ))}
-        <Button onClick={(e) => openMenu(true)}>+</Button>
+        <Button className='piilotaButton' onClick={(e) => openMenu(true)} style={{
+                    color: "#000000",
+                }}>+</Button>
         </div>
         )
       }
