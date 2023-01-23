@@ -37,6 +37,7 @@ function List(props) {
   function findLongestWord(str) {
 
     str = str.replace("/", "/ ");
+    str = str.replace("-", "- ");
     var strSplit = str.split(' ');
 
     var longestWord = strSplit.sort(function(a, b) { 
@@ -82,7 +83,20 @@ function List(props) {
 
   }
 
+  const refine = (text) => {
+    text = text.replace("-", "- ");
+    text = text.replace("/", "/ ")
+    return text;
+  }
+
   if (filteredData.length !== 0) {
+    filteredData.forEach(function(element, index, array){
+        if(element[1].includes("-")){
+          element[1].replace("-", "- ");
+          array[index][1] = element[1].replace("-", "- ");
+        }
+    });
+
     const chunkSize = Math.ceil( filteredData.length / 5);
     const groups = filteredData.map((e, i) => { 
       return i % chunkSize === 0 ? filteredData.slice(i, i + chunkSize) : null; 
@@ -95,10 +109,7 @@ function List(props) {
             {items.map((item) => (
               <li key={items.indexOf(item)} className="textBox">
                 <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
-                  {item[1].replace("/", "/ ")}
-                  <br></br>
-                  <br></br>
-                  <br></br>          </a>
+                  {refine(item[1])}</a>
               </li>
             ))}
           </ul>

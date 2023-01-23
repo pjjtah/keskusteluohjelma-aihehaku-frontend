@@ -91,7 +91,7 @@ h3 {
   padding-right: 10px;
 }
 
-.search .textBox {
+.search .searchBox .textBox {
   color:white;
   width: 35.5%;
   font-size: 20px;
@@ -105,7 +105,7 @@ h3 {
 }
 
 
-.search .textBox:hover {
+.search .searchBox .textBox:hover {
   border-color: black;
 }
 
@@ -143,6 +143,20 @@ ul {
 
 .textBox {
   color: black;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  align-self: auto;
+  font-family: "kaarle";
+  list-style-type : none;
+  border: 10px solid black;
+  margin: 10px 10px 20px 10px;
+}
+
+.searchBox {
+  background-color: black;
+  color: white;
+  font-size: 25px;
   width: auto;
   height: auto;
   cursor: pointer;
@@ -203,17 +217,40 @@ button {
 }
 
 .searchButton {
-  font-size: 20px;
+  align-self: auto;
+  width: 33%;
+  height: fit-content;
+  font-size: 25px;
   color: white;
   background-color: rgb(58, 194, 58);
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 1px;
   border: 10px solid  rgb(58, 194, 58);
+  border-bottom: 13px solid rgb(58, 194, 58);
   font-family: "kaarle";
   margin-left: 20px;
 }
 
+.search .searchBox {
+  height: 50px;
+  width: 58.5%;
+  margin: 0px;
+  padding: 15px;
+  text-align: center;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  border: 10px solid black;
+  border-bottom: 15px solid black;
+}
+
+
 button:hover {
+  color: black;
+  background: white;
+  border: 10px solid black;
+}
+
+.searchButton:hover {
   color: black;
   background: white;
   border: 10px solid black;
@@ -253,6 +290,7 @@ button:hover {
   .header {
     max-width: 900px;
   }
+  
 }
 
 @media only screen and (max-width: 900px) {
@@ -262,15 +300,39 @@ button:hover {
   .logo {
     width: 100%;
   }
-  .search .textBox {
-    width: 58.5%;
+
+  .search  {
+    height: 10px;
     margin: 0;
+    margin-left: 12px;
+    padding: 2px;
+    padding-bottom: 60px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    justify-content: center;
+    
+  }
+
+  .search .searchBox {
+    width: 58.5%;
+    margin: 0px;
     padding: 15px;
     text-align: center;
     box-sizing: border-box;
     text-transform: uppercase;
     border: 10px solid black;
+    border-bottom: 15px solid black;
   }
+
+  .searchButton {
+    border-bottom: 13px solid rgb(58, 194, 58);
+    width: 33%;
+    height: fit-content;
+    padding: 1px;
+    font-size: 25px;
+  }
+
+  
 }
 
 
@@ -287,19 +349,37 @@ button:hover {
     margin: 20px;
   }
   .search  {
-    width: 350px;
+    width: 300px;
+    height: 10px;
     margin: 0;
-    padding: 15px;
-    padding-bottom: 10px;
+    margin-left: 12px;
+    padding: 2px;
+    padding-bottom: 60px;
     box-sizing: border-box;
     text-transform: uppercase;
     justify-content: center;
     
   }
+  .textBox {
+    margin-bottom: 5px;
+    text-align: center;
+    display: inline-block;
+    max-width: 450px;
+    width: 90%;
+  }
 
   .searchButton {
+    width: 33%;
+    height: fit-content;
+    padding: 1px;
+    font-size: 25px;
+  }
+
+  li a {
+    width: 80%;
     height: 100%;
-    padding: 15px;
+    max-width: 450px;
+    padding: 5px 10px 10px 10px;
   }
 
 }

@@ -65,6 +65,65 @@ function TagAdder(props) {
       resetTags();
   }, [tagInputText])
 
+  async function handlePiilotettu(tag) {
+    setLoading(true);
+    const result = await Tag("piilotettu");
+    const result2 = await DeleteTag("alapeukku");
+    const result3 = await DeleteTag("yläpeukku");
+    const result4 = await DeleteTag("lit");
+
+    selectedEmojis.pop("alapeukku")
+    selectedEmojis.pop("yläpeukku")
+    selectedEmojis.pop("lit")
+    selectedEmojis.push("piilotettu")
+    resetTags();
+    setLoading(false);
+}
+
+async function handleAlapeukku(tag) {
+    setLoading(true);
+    const result = await Tag("alapeukku");
+    const result2 = await DeleteTag("piilotettu");
+    const result3 = await DeleteTag("yläpeukku");
+    const result4 = await DeleteTag("lit");
+
+    tagged.push(["alapeukku","alapeukku"])
+    selectedEmojis.push("alapeukku")
+    resetTags();
+    setLoading(false);
+}
+
+async function handleYlapeukku(tag) {
+    setLoading(true);
+    const result = await Tag("yläpeukku");
+    const result2 = await DeleteTag("piilotettu");
+    const result3 = await DeleteTag("alapeukku");
+    const result4 = await DeleteTag("lit");
+
+    selectedEmojis.pop("alapeukku")
+    selectedEmojis.pop("pilotettu")
+    selectedEmojis.pop("lit")
+    selectedEmojis.push("yläpeukku")
+    resetTags();
+    setLoading(false);
+}
+
+async function handleLit(tag) {
+    setLoading(true);
+    const result = await Tag("lit");
+    const result2 = await DeleteTag("piilotettu");
+    const result3 = await DeleteTag("alapeukku");
+    const result4 = await DeleteTag("yläpeukku");
+
+    selectedEmojis.pop("alapeukku")
+    selectedEmojis.pop("pilotettu")
+    selectedEmojis.pop("yläpeukku")
+    selectedEmojis.push("lit")
+    resetTags();
+    setLoading(false);
+}
+
+
     // tagin lisääminen videoon
     async function handleSubmit(tag) {
         setLoading(true);
@@ -223,19 +282,19 @@ function TagAdder(props) {
         <div>
             {selectedEmojis.includes("piilotettu") ? <Button className='piilotaButton' onClick={(e) => handleDelete("piilotettu", e)} style={{
                     backgroundColor: "#D3D3D3",}}>❌</Button> : (
-            <Button className='piilotaButton' onClick={(e) => handleSubmit("piilotettu", e)}>❌</Button>)}
+            <Button className='piilotaButton' onClick={(e) => handlePiilotettu("piilotettu", e)}>❌</Button>)}
 
             {selectedEmojis.includes("alapeukku") ? <Button className='piilotaButton' onClick={(e) => handleDelete("alapeukku", e)} style={{
                     backgroundColor: "#D3D3D3",}}>👎</Button> : (
-            <Button className='piilotaButton' onClick={(e) => handleSubmit("alapeukku", e)}>👎</Button>)}
+            <Button className='piilotaButton' onClick={(e) => handleAlapeukku("alapeukku", e)}>👎</Button>)}
 
             {selectedEmojis.includes("yläpeukku") ? <Button className='piilotaButton' onClick={(e) => handleDelete("yläpeukku", e)} style={{
                     backgroundColor: "#D3D3D3",}}>👍</Button> : (
-            <Button className='piilotaButton' onClick={(e) => handleSubmit("yläpeukku", e)}>👍</Button>)}
+            <Button className='piilotaButton' onClick={(e) => handleYlapeukku("yläpeukku", e)}>👍</Button>)}
 
             {selectedEmojis.includes("lit") ? <Button className='piilotaButton' onClick={(e) => handleDelete("lit", e)} style={{
                     backgroundColor: "#D3D3D3",}}>🔥</Button> : (
-            <Button className='piilotaButton' onClick={(e) => handleSubmit("lit", e)}>🔥</Button>)}
+            <Button className='piilotaButton' onClick={(e) => handleLit("lit", e)}>🔥</Button>)}
 
         {selectedTags.map((item) => (
             <Button key={item}  className='piilotaButton' onClick={(e) => handleDelete(item, e)}  style={{
