@@ -34,7 +34,7 @@ function Search(props) {
         <input
           onChange={inputHandler}
           placeholder="ETSI AIHETTA"
-          className="textBox"
+          className="searchBox"
         />
         <button onClick={() => searchTerm(videoInputText) }className="searchButton">ETSI</button>
       </div>

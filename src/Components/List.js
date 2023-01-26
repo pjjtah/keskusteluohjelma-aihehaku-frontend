@@ -14,7 +14,7 @@ function List(props) {
     }
     //return the item which contains the user input
     else {
-      return el[1].toLowerCase().includes(props.input)
+      return el[1].toLowerCase().includes("")
     }
   })
 
