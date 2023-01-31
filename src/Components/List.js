@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import Button from "react-bootstrap/Button";
+import Hyphenated from 'react-hyphen';
 
 function List(props) {
 
@@ -109,7 +110,10 @@ function List(props) {
             {items.map((item) => (
               <li key={items.indexOf(item)} className="textBox">
                 <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
-                  {refine(item[1])}</a>
+                  <Hyphenated>
+                    {refine(item[1])}
+                  </Hyphenated>
+                </a>
               </li>
             ))}
           </ul>
