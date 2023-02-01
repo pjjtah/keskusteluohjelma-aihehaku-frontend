@@ -28,6 +28,15 @@ function List(props) {
     .then(data => data.json())
   }
 
+  const openVideo = (e) => {
+    return fetch(baseUrl + 'katsottu/' + e.substring(17), {
+      method: 'GET',
+      headers: {
+      }
+    })
+    .then(data => data.json())
+  }
+
   const handleSubmit = async e => {
     e.preventDefault();
     const result = await NewSuggestion();
@@ -109,7 +118,7 @@ function List(props) {
           <ul key={items}>
             {items.map((item) => (
               <li key={items.indexOf(item)} className="textBox">
-                <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
+                <a href={item[2]} target="_blank" onClick={(e) => openVideo(item[[2]])} rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
                     {hyphenateSync(refine(item[1]), {minWordLength: 7})}
                 </a>
               </li>
