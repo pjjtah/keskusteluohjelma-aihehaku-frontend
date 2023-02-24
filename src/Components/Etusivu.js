@@ -5,23 +5,17 @@ import "../App.css";
 
 function Etusivu() {
   const [inputText, setInputText] = useState("");
-  const [videosLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
   const [videos, setVideos] = useState([]);
   const [tags, setTags] = useState([]);
   const [filteredTags, setFilteredTags] = useState([]);
-  const [chapters, setChapters] = useState([]);
 
   const baseUrl = process.env.REACT_APP_BASE_URL
 
   let inputHandler = (e, newValue) => {
-    console.log(newValue);
-    console.log(newValue["newValue"])
     
     var lowerCase = newValue["newValue"].toLowerCase();
 
     setInputText(lowerCase);
-
   };
 
   const searchTerm = (e) => {
@@ -29,15 +23,24 @@ function Etusivu() {
       .then(res => res.json())
       .then(
         (result) => {
-          setIsLoaded(true);
           setVideos(JSON.parse(result));
         },
         (error) => {
-          setIsLoaded(true);
         }
       )
-
   }
+
+  async function searchSuggestion(suggestion) {
+    fetch(baseUrl + "keskusteluohjelma?term=" + suggestion) 
+    .then(res => res.json())
+    .then(
+      (result) => {
+        setVideos(JSON.parse(result));
+      },
+      (error) => {
+      }
+    )
+}
 
   // haetaan kaikki videot
   useEffect(() => {
@@ -45,11 +48,9 @@ function Etusivu() {
       .then(res => res.json())
       .then(
         (result) => {
-          setIsLoaded(true);
           setVideos(JSON.parse(result));
         },
         (error) => {
-          setIsLoaded(true);
         }
       )
 
@@ -61,14 +62,12 @@ function Etusivu() {
     .then(res => res.json())
     .then(
       (result) => {
-        setIsLoaded(true);
         let t = JSON.parse(result)
         setTags(Object.values(t).filter(word => {
           return word[0] 
         }));
       },
       (error) => {
-        setIsLoaded(true);
       }
     )
 
@@ -103,6 +102,15 @@ const onSuggestionsFetchRequested = ({ value }) => {
     setFilteredTags([]);
   };
 
+  const onSuggestionSelected = (event, {suggestion, suggestionValue}) => {
+    event.preventDefault();
+    var lowerCase = suggestionValue.toLowerCase();
+    console.log(suggestionValue)
+    setInputText(lowerCase);
+    console.log(inputText)
+    searchSuggestion(suggestionValue.toLowerCase());
+  };
+
 
   const inputProps = {
     value: inputText,
@@ -126,6 +134,7 @@ const onSuggestionsFetchRequested = ({ value }) => {
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}
         onSuggestionsClearRequested={onSuggestionsClearRequested}
         getSuggestionValue={getSuggestionValue}
+        onSuggestionSelected={onSuggestionSelected}
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
         className="searchBox"

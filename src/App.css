@@ -19,6 +19,13 @@
   }
 }
 
+input {
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-border-radius:0px;
+  border-radius: 0px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -110,20 +117,20 @@ h3 {
 }
 
 ::-webkit-input-placeholder {
-  opacity: 1;
+  opacity: 0.85;
   color: white;
 }
 
 ::-moz-placeholder { /* Firefox 19+ */
-  opacity: 1;
+  opacity: 0.85;
   color: white;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  opacity: 1;
+  opacity: 0.85;
   color: white;
 }
 :-moz-placeholder { /* Firefox 18- */
-  opacity: 1;
+  opacity: 0.85;
   color: white;
 }
 
@@ -232,16 +239,12 @@ button {
   margin-left: 20px;
 }
 
-.search .searchBox {
+.search {
   height: 50px;
-  width: 58.5%;
-  margin: 0px;
-  padding: 15px;
+  width: 50.5%;
   text-align: center;
   box-sizing: border-box;
   text-transform: uppercase;
-  border: 10px solid black;
-  border-bottom: 15px solid black;
 }
 
 
@@ -252,9 +255,9 @@ button:hover {
 }
 
 .searchButton:hover {
-  color: black;
-  background: white;
-  border: 10px solid black;
+  background: green;
+  border: 10px solid green;
+  border-bottom: 13px solid green;
 }
 
 .piilotaButton:hover {
@@ -276,12 +279,15 @@ button:hover {
   height: auto;
   cursor: pointer;
   align-self: auto;
+  text-align: left;
   font-family: "kaarle";
   text-transform: uppercase;
   list-style-type : none;
   border: 10px solid black;
-  margin: 10px 10px 20px 10px;
+  margin: 4px 10px 20px 10px;
 }
+
+
 
 .react-autosuggest__input--focused {
   outline: none;
@@ -292,15 +298,12 @@ button:hover {
   border-bottom-right-radius: 0;
 }
 
-.react-autosuggest__suggestions-container {
-  display: none;
-}
 
 .react-autosuggest__suggestions-container--open {
   display: block;
   position: absolute;
   top: 65px;
-  width: 360px;
+  width: 345px;
   border: 1px solid #aaa;
   background-color: black;
   font-family: Helvetica, sans-serif;
@@ -309,6 +312,7 @@ button:hover {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   z-index: 2;
+  margin-left: 10px;
   
 }
 
@@ -316,18 +320,18 @@ button:hover {
   margin: 0;
   padding: 0;
   list-style-type: none;
-  width: 360px;
+  width: 345px;
 }
 
 .react-autosuggest__suggestion {
   cursor: pointer;
 
   height: fit-content;
-  font-size: 25px;
+  font-size: 22px;
   color: white;
   background-color: black;
   cursor: pointer;
-  padding: 1px;
+  padding: 5px;
   border: 10px solid  black;
   border-bottom: 13px solid black;
   font-family: "kaarle";
@@ -336,7 +340,7 @@ button:hover {
 }
 
 .react-autosuggest__suggestion--highlighted {
-  background-color: rgb(58, 194, 58);
+  color: green;
   padding-bottom: 7px;
 }
 
@@ -366,6 +370,42 @@ button:hover {
 @media only screen and (max-width: 1200px) {
   .header {
     max-width: 900px;
+  }
+
+  .react-autosuggest__input {
+    font-size: 20px;
+    width: 100%;
+    height: 25px;
+    margin: 0px;
+    padding: 15px;
+    text-align: center;
+    text-align: left;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    border: 10px solid black;
+    border-bottom: 15px solid black;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    display: block;
+    position: absolute;
+    top: 65px;
+    width: 295px;
+    border: 1px solid #aaa;
+    background-color: black;
+    font-family: Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    z-index: 2;
+    margin-left: 0px;
+  }
+
+  .searchButton {
+    border-bottom: 13px solid rgb(58, 194, 58);
+    width: 33%;
+    height: 55px;
+    padding: 1px;
+    font-size: 20px;
   }
   
 }
@@ -408,6 +448,7 @@ button:hover {
     margin: 0px;
     padding: 15px;
     text-align: center;
+    text-align: left;
     box-sizing: border-box;
     text-transform: uppercase;
     border: 10px solid black;
@@ -418,13 +459,14 @@ button:hover {
     display: block;
     position: absolute;
     top: 65px;
-    width: 200px;
+    width: 190px;
     border: 1px solid #aaa;
     background-color: black;
     font-family: Helvetica, sans-serif;
     font-weight: 300;
     font-size: 16px;
     z-index: 2;
+    margin-left: 0px;
     
   }
   
@@ -437,7 +479,7 @@ button:hover {
   
   .react-autosuggest__suggestion {
     cursor: pointer;
-    width: 170px;
+    width: 160px;
     height: fit-content;
     font-size: 20px;
     color: white;
@@ -450,16 +492,16 @@ button:hover {
   }
 
   .react-autosuggest__suggestion--highlighted {
-    background-color: rgb(58, 194, 58);
+    color: green;
     padding-bottom: 7px;
   }
 
   .searchButton {
     border-bottom: 13px solid rgb(58, 194, 58);
     width: 33%;
-    height: fit-content;
+    height: 55px;
     padding: 1px;
-    font-size: 25px;
+    font-size: 20px;
   }
 
   .searchBox {
@@ -499,9 +541,9 @@ button:hover {
     margin-bottom: 5px;
     text-align: center;
     display: inline-block;
-    max-width: 450px;
-    width: 90%;
-    padding-bottom: 0px;
+    max-width: 430px;
+    width: 85%;
+    padding: 10px;
   }
 
 
@@ -512,6 +554,7 @@ button:hover {
     margin: 0px;
     padding: 15px;
     text-align: center;
+    text-align: left;
     box-sizing: border-box;
     text-transform: uppercase;
     border: 10px solid black;
@@ -522,13 +565,14 @@ button:hover {
     display: block;
     position: absolute;
     top: 65px;
-    width: 200px;
+    width: 295px;
     border: 1px solid #aaa;
     background-color: black;
     font-family: Helvetica, sans-serif;
     font-weight: 300;
     font-size: 16px;
     z-index: 2;
+    margin-left: 0px;
     
   }
   
@@ -541,7 +585,7 @@ button:hover {
   
   .react-autosuggest__suggestion {
     cursor: pointer;
-    width: 181px;
+    width: 275px;
     height: fit-content;
     font-size: 20px;
     color: white;
@@ -554,7 +598,7 @@ button:hover {
   }
 
   .react-autosuggest__suggestion--highlighted {
-    background-color: rgb(58, 194, 58);
+    color: green;
     padding-bottom: 7px;
   }
 
