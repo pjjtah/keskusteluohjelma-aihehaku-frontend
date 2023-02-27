@@ -235,10 +235,12 @@ button {
   background-color: rgb(58, 194, 58);
   cursor: pointer;
   font-family: "kaarle";
+  margin: 0px;
   margin-left: 20px;
   display: flex;
   justify-content: center;
   line-height: 44px;
+  text-align: center;
 }
 
 .search {
@@ -278,14 +280,13 @@ button:hover {
   color: white;
   font-size: 25px;
   width: 350px;
-  height: auto;
+  height: 51px;
   cursor: pointer;
   align-self: auto;
   text-align: left;
   font-family: "kaarle";
   text-transform: uppercase;
   list-style-type : none;
-  border: 10px solid black;
 }
 
 
@@ -442,6 +443,7 @@ button:hover {
     width: 50px;
     padding: 1px;
     font-size: 20px;
+    text-align: center;
   }
 
   
@@ -497,6 +499,7 @@ button:hover {
     margin: 0px;
     padding: 15px;
     text-align: center;
+    display: inline-block;
     text-align: left;
     box-sizing: border-box;
     text-transform: uppercase;
@@ -548,8 +551,12 @@ button:hover {
   .searchButton {
     width: 30%;
     height: 55px;
-    padding: 1px;
+    padding: 0px;
     font-size: 20px;
+    justify-content: center;
+    line-height: 44px;
+    margin: 0px;
+    margin-left: 10px;
   }
 
   li a {
