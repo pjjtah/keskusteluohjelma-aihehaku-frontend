@@ -1,22 +1,10 @@
-import { React, useState } from 'react'
+import { React, memo } from 'react'
 import Button from "react-bootstrap/Button";
 import TagAdder from "./TagAdder";
 
+
 function TaggingList(props) {
-
-  const baseUrl = process.env.REACT_APP_BASE_URL
-
   
-
-  async function NewSuggestion() {
-    return fetch(baseUrl + 'ehdotukset?ehdotus=' + props.input, {
-      method: 'POST',
-      headers: {
-      }
-    })
-    .then(data => data.json())
-  }
-
 
   function findLongestWord(str) {
 
@@ -72,6 +60,7 @@ function TaggingList(props) {
     const groups = props.videos.map((e, i) => { 
       return i % chunkSize === 0 ? props.videos.slice(i, i + chunkSize) : null; 
     }).filter(e => { return e; });
+    
 
     return (
       <div className='items'>
@@ -99,4 +88,4 @@ function TaggingList(props) {
   }
 }
 
-export default TaggingList
+export default memo(TaggingList)

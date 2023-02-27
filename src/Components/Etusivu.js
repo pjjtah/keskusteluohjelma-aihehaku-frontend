@@ -42,6 +42,19 @@ function Etusivu() {
     )
 }
 
+async function searchEmpty() {
+  setInputText("")
+  fetch(baseUrl + "keskusteluohjelma?term=") 
+  .then(res => res.json())
+  .then(
+    (result) => {
+      setVideos(JSON.parse(result));
+    },
+    (error) => {
+    }
+  )
+}
+
   // haetaan kaikki videot
   useEffect(() => {
       fetch(baseUrl + "keskusteluohjelma?term=") 
@@ -70,7 +83,6 @@ function Etusivu() {
       (error) => {
       }
     )
-
 }, [])
 
 // Teach Autosuggest how to calculate suggestions for any given input value.
@@ -83,12 +95,9 @@ const getSuggestions = value => {
   );
 };
 
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
+
 const getSuggestionValue = suggestion => suggestion[0];
 
-// Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <div>
     {suggestion[0]}
@@ -97,7 +106,6 @@ const renderSuggestion = suggestion => (
 const onSuggestionsFetchRequested = ({ value }) => {
   setFilteredTags(getSuggestions(value));
 };
-  // Autosuggest will call this function every time you need to clear suggestions.
   const onSuggestionsClearRequested = () => {
     setFilteredTags([]);
   };
@@ -105,9 +113,7 @@ const onSuggestionsFetchRequested = ({ value }) => {
   const onSuggestionSelected = (event, {suggestion, suggestionValue}) => {
     event.preventDefault();
     var lowerCase = suggestionValue.toLowerCase();
-    console.log(suggestionValue)
     setInputText(lowerCase);
-    console.log(inputText)
     searchSuggestion(suggestionValue.toLowerCase());
   };
 
@@ -124,7 +130,7 @@ const onSuggestionsFetchRequested = ({ value }) => {
     
     <div className="main">
       <div className="header">
-      <p className="logo">, KAARLE.</p>
+      <p className="logo" onClick={searchEmpty}>, KAARLE.</p>
       {/* Jos ei näytetä otsikkoa, H1 piilotettuna johonkn? */}
       {/* <h1>Keskusteluohjelman aihehaku</h1> */}
       {/* TODO siirretään oikeeseen yläkulmaan 2 sarakkeen levyseksi */}
