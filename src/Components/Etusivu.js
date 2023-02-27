@@ -117,14 +117,22 @@ const onSuggestionsFetchRequested = ({ value }) => {
     searchSuggestion(suggestionValue.toLowerCase());
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      searchTerm();
+    }
+  }
+
 
   const inputProps = {
     value: inputText,
     onChange: inputHandler, // called every time the input value changes
     onBlur: "", // called when the input loses focus, e.g. when user presses Tab
     type: "search",
-    placeholder: "AIHEHAKU"
+    placeholder: "AIHEHAKU",
+    onKeyDown: handleKeyDown
   };
+
 
   return (
     

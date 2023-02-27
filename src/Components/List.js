@@ -119,7 +119,7 @@ function List(props) {
             {items.map((item) => (
               <li key={items.indexOf(item)} className="textBox">
                 <a href={item[2]} target="_blank" onClick={(e) => openVideo(item[[2]])} rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
-                    {hyphenateSync(refine(item[1]), {minWordLength: 7})}
+                    {hyphenateSync(refine(item[1]), {minWordLength: 13})}
                 </a>
               </li>
             ))}
