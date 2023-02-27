@@ -13,7 +13,6 @@ export default function Admin() {
   const [tagInputText, setTagInputText] = useState("");
   const [tags, setTags] = useState([]);
   const [filteredTags, setFilteredTags] = useState();
-  const [videosLoaded, setIsLoaded] = useState(false);
   const [videos, setVideos] = useState([]);
   const [tagsUpdated, setTagsUpdated] = useState(false);
   const [suggestions, setSuggestions] = useState([])
@@ -35,11 +34,9 @@ useEffect(() => {
     .then(res => res.json())
     .then(
       (result) => {
-        setIsLoaded(true);
         setVideos(JSON.parse(result));
       },
       (error) => {
-        setIsLoaded(true);
       }
     )
 }}, [])
@@ -53,12 +50,11 @@ if(!tagsUpdated){
     (result) => {
       setTags(JSON.parse(result));
       setTagsUpdated(true);
-      if(filteredTags == undefined){
+      if(filteredTags === undefined){
         setFilteredTags(JSON.parse(result));
       }
     },
     (error) => {
-      setIsLoaded(true);
       setTagsUpdated(true);
     }
   )
@@ -76,7 +72,6 @@ useEffect(() => {
         setSuggestions(JSON.parse(result));
       },
       (error) => {
-        setIsLoaded(true);
       }
     )
   }

@@ -1,5 +1,4 @@
 import { React, memo } from 'react'
-import Button from "react-bootstrap/Button";
 import TagAdder from "./TagAdder";
 
 
@@ -78,7 +77,7 @@ function TaggingList(props) {
                   <br></br>
                   <br></br>
 
-                <TagAdder videoId={item[2].slice(17, item[2].indexOf("?"))} videoTime={item[2].slice(item[2].indexOf("=")+1)} tags={props.tags} setTagsUpdated={props.setTagsUpdated}></TagAdder>
+                <TagAdder videoId={item[2].slice(17, item[2].indexOf("?"))} videoTime={item[2].slice(item[2].indexOf("=")+1)} updateTags={props.updateTags} tags={props.tags}></TagAdder>
               </li>
             ))}
           </ul>

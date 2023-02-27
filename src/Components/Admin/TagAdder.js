@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button} from '@mui/material';
 import { React, useState, useEffect  } from 'react'
 import TextField from "@mui/material/TextField";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -21,25 +21,25 @@ function TagAdder(props) {
     const [tagged, setTagged] = useState([]);
     
 
-    if(selectedTags.length== 0){
+    if(selectedTags.length === 0){
         Object.entries(props.tags).map((item) => (
             item.flat().includes(props.videoId + "?t=" + props.videoTime)
-            && (item[0] != "piilotettu" && 
-            item[0] != "alapeukku" && 
-            item[0] != "yläpeukku" && 
-            item[0] != "lit")
+            && (item[0] !== "piilotettu" && 
+            item[0] !== "alapeukku" && 
+            item[0] !== "yläpeukku" && 
+            item[0] !== "lit")
             &&
             selectedTags.push(item[0]))
         )
     }
 
-    if(selectedEmojis.length== 0){
+    if(selectedEmojis.length === 0){
         Object.entries(props.tags).map((item) => (
             item.flat().includes(props.videoId + "?t=" + props.videoTime)
-            && (item[0] == "piilotettu" | 
-            item[0] == "alapeukku" || 
-            item[0] == "yläpeukku" || 
-            item[0] == "lit")
+            && (item[0] === "piilotettu" | 
+            item[0] === "alapeukku" || 
+            item[0] === "yläpeukku" || 
+            item[0] === "lit")
             &&
             selectedEmojis.push(item[0]))
         )
@@ -67,58 +67,52 @@ function TagAdder(props) {
 
   async function handlePiilotettu(tag) {
     setLoading(true);
-    const result = await Tag("piilotettu");
-    const result2 = await DeleteTag("alapeukku");
-    const result3 = await DeleteTag("yläpeukku");
-    const result4 = await DeleteTag("lit");
+    setSelectedEmojis(["piilotettu"])
+    await Tag("piilotettu");
+    await DeleteTag("alapeukku");
+    await DeleteTag("yläpeukku");
+    await DeleteTag("lit");
 
-    selectedEmojis.pop("alapeukku")
-    selectedEmojis.pop("yläpeukku")
-    selectedEmojis.pop("lit")
-    selectedEmojis.push("piilotettu")
+    
     resetTags();
     setLoading(false);
 }
 
 async function handleAlapeukku(tag) {
     setLoading(true);
-    const result = await Tag("alapeukku");
-    const result2 = await DeleteTag("piilotettu");
-    const result3 = await DeleteTag("yläpeukku");
-    const result4 = await DeleteTag("lit");
+    setSelectedEmojis(["alapeukku"])
+    await Tag("alapeukku");
+    await DeleteTag("piilotettu");
+    await DeleteTag("yläpeukku");
+    await DeleteTag("lit");
 
-    tagged.push(["alapeukku","alapeukku"])
-    selectedEmojis.push("alapeukku")
+
     resetTags();
     setLoading(false);
 }
 
 async function handleYlapeukku(tag) {
     setLoading(true);
-    const result = await Tag("yläpeukku");
-    const result2 = await DeleteTag("piilotettu");
-    const result3 = await DeleteTag("alapeukku");
-    const result4 = await DeleteTag("lit");
+    setSelectedEmojis(["yläpeukku"])
+    await Tag("yläpeukku");
+    await DeleteTag("piilotettu");
+    await DeleteTag("alapeukku");
+    await DeleteTag("lit");
 
-    selectedEmojis.pop("alapeukku")
-    selectedEmojis.pop("pilotettu")
-    selectedEmojis.pop("lit")
-    selectedEmojis.push("yläpeukku")
+
     resetTags();
     setLoading(false);
 }
 
 async function handleLit(tag) {
     setLoading(true);
-    const result = await Tag("lit");
-    const result2 = await DeleteTag("piilotettu");
-    const result3 = await DeleteTag("alapeukku");
-    const result4 = await DeleteTag("yläpeukku");
+    setSelectedEmojis(["lit"])
+    await Tag("lit");
+    await DeleteTag("piilotettu");
+    await DeleteTag("alapeukku");
+    await DeleteTag("yläpeukku");
 
-    selectedEmojis.pop("alapeukku")
-    selectedEmojis.pop("pilotettu")
-    selectedEmojis.pop("yläpeukku")
-    selectedEmojis.push("lit")
+
     resetTags();
     setLoading(false);
 }
@@ -127,38 +121,36 @@ async function handleLit(tag) {
     // tagin lisääminen videoon
     async function handleSubmit(tag) {
         setLoading(true);
-        const result = await Tag(tag);
-        if(tag != "piilotettu" && 
-        tag != "alapeukku" && 
-        tag != "yläpeukku" && 
-        tag != "lit"){
+        await Tag(tag);
+        if(tag !== "piilotettu" && 
+        tag !== "alapeukku" && 
+        tag !== "yläpeukku" && 
+        tag !== "lit"){
             selectedTags.push(tag)
             tagged.push([tag,tag])
         }
         else{
             selectedEmojis.push(tag)
         }
-        resetTags();
         setLoading(false);
     }
 
         // tagin poistaminen videolta
         async function handleDelete(tag) {
-            console.log(tag)
             setLoading(true);
-            const result = await DeleteTag(tag);
-            if(tag != "piilotettu" && 
-            tag != "alapeukku" && 
-            tag != "yläpeukku" && 
-            tag != "lit"){
-                selectedTags.pop(tag)
+
+            if(tag !== "piilotettu" && 
+            tag !== "alapeukku" && 
+            tag !== "yläpeukku" && 
+            tag !== "lit"){
+                setSelectedTags(selectedTags.filter(item => item !== tag))
             }
             else{
-                selectedEmojis.pop(tag)
+                setSelectedEmojis(selectedEmojis.filter(item => item !== tag))
             }
-            resetTags();
-            setLoading(false);
+            DeleteTag(tag);
         }
+
 
     async function Tag(tag) {
         return fetch(baseUrl + 'tagit/' + tag + "/" + props.videoId + "/" + props.videoTime, {
@@ -168,6 +160,7 @@ async function handleLit(tag) {
             }
         })
             .then(data => data.json())
+
 
     }
 
@@ -179,21 +172,27 @@ async function handleLit(tag) {
             }
         })
             .then(data => data.json())
+            .then(setLoading(false))
     }
     const newTag = async e => {
         setLoading(true);
         e.preventDefault();
-        const result = await NewTag();
-        setLoading(false);
+        await NewTag();
+        
         handleSubmit(tagInputText)
         setTagInputText('');
-        props.setTagsUpdated(false);
         setOpen(false)
     }
 
+    useEffect(() => {
+        resetTags();
+    }, [selectedTags]);
+
     const resetTags = () => {
-        
         let [t, u] = splitTagged(Object.entries(filteredTags), e => selectedTags.includes(e[0]));
+        if(selectedTags.length === 0){
+            setTagged([])
+        }
         setUntagged(u);
         setTagged(t)
     }
@@ -205,8 +204,6 @@ async function handleLit(tag) {
       }
 
     async function DeleteTag(tag) {
-
-        setLoading(true);
         return fetch(baseUrl + 'tagit/' + tag + "/" + props.videoId + "/" + props.videoTime, {
             method: 'DELETE',
             headers: {
@@ -214,6 +211,8 @@ async function handleLit(tag) {
             }
         })
             .then(data => data.json())
+            .then(props.updateTags())
+            .then(setLoading(false))
     }
     const openMenu = (o) => {
         resetTags();

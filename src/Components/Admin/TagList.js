@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React} from 'react'
 import Button from "react-bootstrap/Button";
 
 function getToken() {
@@ -47,8 +47,7 @@ function TagList(props) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const result = await NewTag();
-        console.log(result)
+        await NewTag();
         props.setInputText('');
         props.setTagsUpdated(false);
     }

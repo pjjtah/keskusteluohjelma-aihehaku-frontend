@@ -7,10 +7,8 @@ import "../../App.css";
 export default function AdminNew() {
 
   const [tags, setTags] = useState([]);
-  const [allTags, setAllTags] = useState([]);
   const [filteredTags, setFilteredTags] = useState([]);
   const [inputText, setInputText] = useState("");
-  const [videosLoaded, setIsLoaded] = useState(false);
   const [videos, setVideos] = useState([]);
   const [tagsUpdated, setTagsUpdated] = useState(false);
 
@@ -24,11 +22,9 @@ useEffect(() => {
     .then(res => res.json())
     .then(
       (result) => {
-        setIsLoaded(true);
         setVideos(JSON.parse(result));
       },
       (error) => {
-        setIsLoaded(true);
       }
     )
 }}, [])
@@ -71,8 +67,7 @@ async function searchEmpty() {
   )
 }
 
-// haetaan kaikki tagit
-useEffect(() => {
+async function updateTags() {
   fetch(baseUrl + "tagit")
   .then(res => res.json())
   .then(
@@ -81,10 +76,9 @@ useEffect(() => {
       setTags(t);
     },
     (error) => {
-      setIsLoaded(true);
     }
   )
-}, [tagsUpdated])
+}
 
 // haetaan kaikki tagit
 useEffect(() => {
@@ -93,13 +87,13 @@ useEffect(() => {
   .then(
     (result) => {
       let t = JSON.parse(result)
-      setAllTags(t);
+      setTags(t);
+      setTagsUpdated(true)
     },
     (error) => {
-      setIsLoaded(true);
     }
   )
-}, [])
+}, [tagsUpdated])
 
 
 
@@ -171,7 +165,7 @@ useEffect(() => {
         <button onClick={() => searchTerm(inputText) }className="searchButton">ETSI</button>
       </div>
       </div>
-      <TaggingList videos={videos} tags={allTags} setTagsUpdated={setTagsUpdated}/>
+      <TaggingList videos={videos} tags={tags} setTagsUpdated={setTagsUpdated} updateTags={updateTags}/>
     </div>
   );
   }
