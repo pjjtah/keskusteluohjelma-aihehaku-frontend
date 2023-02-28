@@ -486,7 +486,7 @@ button:hover {
     text-align: center;
     display: inline-block;
     width: 90%;
-    padding: px;
+    padding: 0px;
   }
 
 
@@ -551,7 +551,7 @@ button:hover {
 
   li a {
     height: 100%;
-    padding: 10px 0px 0px 0px;
+    padding: 20px 0px 25px 0px;
     width: 90%;
   }
 
