@@ -61,34 +61,34 @@ function List(props) {
   const getFontSize = (text) => {
     let longestWord = findLongestWord(text)
     if(longestWord < 6){
-      fontSize = 50
+      fontSize = 55
     }
     if(longestWord < 9){
-      fontSize = 43
+      fontSize = 46
     }
     if(longestWord < 11){
-      fontSize = 35
+      fontSize = 39
     }
     else if(longestWord < 14){
-      fontSize = 27
+      fontSize = 32
     }
     else if(longestWord < 16){
-      fontSize = 25
+      fontSize = 28
     }
     else if(longestWord < 18){
-      fontSize = 22
+      fontSize = 25
     }
     else if(longestWord < 21){
-      fontSize = 18
+      fontSize = 21
     }
     else if(longestWord < 24){
-      fontSize = 17
+      fontSize = 19
     }
     else if(longestWord < 28){
-      fontSize = 14
+      fontSize = 17
     }
     else if(longestWord >= 28){
-      fontSize = 12
+      fontSize = 15
     }
 
   }
@@ -119,7 +119,7 @@ function List(props) {
             {items.map((item) => (
               <li key={items.indexOf(item)} className="textBox">
                 <a href={item[2]} target="_blank" onClick={(e) => openVideo(item[[2]])} rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
-                    {hyphenateSync(refine(item[1]), {minWordLength: 13})}
+                    {hyphenateSync(refine(item[1]), {minWordLength: 10})}
                 </a>
               </li>
             ))}
