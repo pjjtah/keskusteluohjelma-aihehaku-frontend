@@ -72,9 +72,7 @@ function TagAdder(props) {
     await DeleteTag("alapeukku");
     await DeleteTag("yläpeukku");
     await DeleteTag("lit");
-
-    
-    resetTags();
+    setTagged(tagged.filter(item => item !== tag))
     setLoading(false);
 }
 
@@ -85,9 +83,7 @@ async function handleAlapeukku(tag) {
     await DeleteTag("piilotettu");
     await DeleteTag("yläpeukku");
     await DeleteTag("lit");
-
-
-    resetTags();
+    setTagged(tagged.filter(item => item !== tag))
     setLoading(false);
 }
 
@@ -98,9 +94,7 @@ async function handleYlapeukku(tag) {
     await DeleteTag("piilotettu");
     await DeleteTag("alapeukku");
     await DeleteTag("lit");
-
-
-    resetTags();
+    setTagged(tagged.filter(item => item !== tag))
     setLoading(false);
 }
 
@@ -111,9 +105,7 @@ async function handleLit(tag) {
     await DeleteTag("piilotettu");
     await DeleteTag("alapeukku");
     await DeleteTag("yläpeukku");
-
-
-    resetTags();
+    setTagged(tagged.filter(item => item !== tag))
     setLoading(false);
 }
 
@@ -211,7 +203,6 @@ async function handleLit(tag) {
             }
         })
             .then(data => data.json())
-            .then(props.updateTags())
             .then(setLoading(false))
     }
     const openMenu = (o) => {
