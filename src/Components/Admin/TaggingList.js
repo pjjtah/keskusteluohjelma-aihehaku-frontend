@@ -72,10 +72,6 @@ function TaggingList(props) {
                 <a href={item[2]} target="_blank" rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
                   {item[1].replace("/", "/ ")}
                   </a>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
 
                 <TagAdder videoId={item[2].slice(17, item[2].indexOf("?"))} videoTime={item[2].slice(item[2].indexOf("=")+1)} updateTags={props.updateTags} tags={props.tags}></TagAdder>
               </li>

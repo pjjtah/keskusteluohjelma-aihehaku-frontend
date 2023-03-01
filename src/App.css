@@ -141,6 +141,7 @@ h3 {
   justify-content: center;
 }
 
+
 ul {
   width: 500px;
   margin-block: 0;
@@ -211,6 +212,23 @@ table {
   margin-left: 20px;
   text-transform: uppercase;
   font-family: "kaarle";
+}
+
+li .lisaaButton {
+  color: #070D0D;
+  cursor: pointer;
+  padding: 10px 10px;
+  background: #90EE90;
+  border: 0px;
+  padding: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-transform: uppercase;
+  font-family: "kaarle";
+}
+
+li .lisaaButton:hover {
+  background: #90E990;
 }
 
 button {
@@ -547,6 +565,10 @@ button:hover {
     margin: 0px;
     margin-left: 10px;
     height: 50px;
+    display: flex;
+    justify-content: center;
+    line-height: 44px;
+    text-align: center;
   }
 
   li a {

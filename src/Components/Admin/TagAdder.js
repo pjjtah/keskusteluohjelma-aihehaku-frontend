@@ -242,35 +242,7 @@ async function handleLit(tag) {
       else if(getOpen){
         return (
             <div>
-                    <TextField
-        id="outlined-basic"
-        onChange={inputHandler}
-        variant="outlined"
-        fullWidth
-        label="suodata"
-    />
-    <Button className='piilotaButton' onClick={(e) => openMenu(false)}>-</Button>
-            {tagged.map((item) => (
-                <Button key={item}  className='piilotaButton' onClick={(e) => handleDelete(item[0], e)}  style={{
-                    fontWeight: "bold",
-                    color: "#000000",
-                }}>{item[0]}</Button>
-            ))}
-            {untagged.slice(0,10).map((item) => (
-                <Button key={item} className='piilotaButton' onClick={(e) => handleSubmit(item[0], e)} style={{
-                    color: "#000000",
-                }}>{item[0]}</Button>
-            ))}
-            <Button onClick={newTag} className='piilotaButton' style={{
-                    color: "#000000",
-                }}>Lisää {tagInputText} tagiksi</Button>   
-            </div>
-        )
-      }
-      else {
-        return(
-        <div>
-            {selectedEmojis.includes("piilotettu") ? <Button className='piilotaButton' onClick={(e) => handleDelete("piilotettu", e)} style={{
+                {selectedEmojis.includes("piilotettu") ? <Button className='piilotaButton' onClick={(e) => handleDelete("piilotettu", e)} style={{
                     backgroundColor: "#D3D3D3",}}>❌</Button> : (
             <Button className='piilotaButton' onClick={(e) => handlePiilotettu("piilotettu", e)}>❌</Button>)}
 
@@ -286,15 +258,46 @@ async function handleLit(tag) {
                     backgroundColor: "#D3D3D3",}}>🔥</Button> : (
             <Button className='piilotaButton' onClick={(e) => handleLit("lit", e)}>🔥</Button>)}
 
-        {selectedTags.map((item) => (
-            <Button key={item}  className='piilotaButton' onClick={(e) => handleDelete(item, e)}  style={{
-                fontWeight: "bold",
-                color: "#000000"
-            }}>{item}</Button>
-        ))}
-        <Button className='piilotaButton' onClick={(e) => openMenu(true)} style={{
+<TextField
+        id="outlined-basic"
+        onChange={inputHandler}
+        variant="outlined"
+        fullWidth
+        label="suodata"
+    />
+    
+            {tagged.map((item) => (
+                <Button key={item}  className='piilotaButton' onClick={(e) => handleDelete(item[0], e)}  style={{
+                    fontWeight: "bold",
                     color: "#000000",
-                }}>+</Button>
+                }}>{item[0]}</Button>
+            ))}
+            {untagged.slice(0,10).map((item) => (
+                <Button key={item} className='piilotaButton' onClick={(e) => handleSubmit(item[0], e)} style={{
+                    color: "#000000",
+                }}>{item[0]}</Button>
+            ))}
+            <Button onClick={newTag} className='piilotaButton' style={{
+                    color: "#000000",
+                }}>Lisää {tagInputText} tagiksi</Button>  
+                <br></br>
+            <Button className='lisaaButton' onClick={(e) => openMenu(false)}>Valmis</Button>
+            </div>
+        )
+      }
+      else {
+        return(
+        <div>
+        {selectedTags.map((item) => (
+            <p  style={{
+                color: "#808080",
+                font: "Kaarle",
+                textTransform: "uppercase",
+
+            }}>{item}</p>
+        ))}
+        <Button className='lisaaButton' onClick={(e) => openMenu(true)} style={{
+                }}>Lisää tägejä</Button>
         </div>
         )
       }
