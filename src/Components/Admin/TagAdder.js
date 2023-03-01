@@ -288,6 +288,11 @@ async function handleLit(tag) {
       else {
         return(
         <div>
+            {selectedEmojis.includes("piilotettu") ? <p>❌</p> : (<p></p>)}
+            {selectedEmojis.includes("alapeukku") ? <p>👎</p> : (<p></p>)}
+            {selectedEmojis.includes("yläpeukku") ? <p>👍</p> : (<p></p>)}
+            {selectedEmojis.includes("lit") ? <p>🔥</p> : (<p></p>)}
+
         {selectedTags.map((item) => (
             <p  style={{
                 color: "#808080",
