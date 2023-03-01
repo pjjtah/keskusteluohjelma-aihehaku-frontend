@@ -224,22 +224,7 @@ async function handleLit(tag) {
         array.forEach((e) => (filter(e) ? tagged : untagged).push(e));
         return [ tagged, untagged];
     }
-
-      if(Object.keys(filteredTags).length === 0 && getOpen){
-        return (
-            <div>
-            <TextField
-            id="outlined-basic"
-            onChange={inputHandler}
-            variant="outlined"
-            fullWidth
-            label="suodata"
-        />
-            <Button className='piilotaButton' onClick={newTag}>Lisää {tagInputText} tagiksi</Button>
-            </div>
-        )
-      }
-      else if(getOpen){
+      if(getOpen){
         return (
             <div>
                 {selectedEmojis.includes("piilotettu") ? <Button className='piilotaButton' onClick={(e) => handleDelete("piilotettu", e)} style={{
