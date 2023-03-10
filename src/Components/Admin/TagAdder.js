@@ -274,39 +274,39 @@ function TagAdder(props) {
 
     let fontSize = 38;
     const getFontSize = (text) => {
-        let longestWord = findLongestWord(text)
-        if(longestWord < 6){
-          fontSize = 55
-        }
-        if(longestWord < 9){
-          fontSize = 46
-        }
-        if(longestWord < 11){
-          fontSize = 39
-        }
-        else if(longestWord < 14){
-          fontSize = 32
-        }
-        else if(longestWord < 16){
-          fontSize = 28
-        }
-        else if(longestWord < 18){
-          fontSize = 25
-        }
-        else if(longestWord < 21){
-          fontSize = 21
-        }
-        else if(longestWord < 24){
-          fontSize = 19
-        }
-        else if(longestWord < 28){
-          fontSize = 17
-        }
-        else if(longestWord >= 28){
-          fontSize = 15
-        }
-    
+      let longestWord = findLongestWord(text)
+      if(longestWord < 6){
+        fontSize = 50
       }
+      if(longestWord < 9){
+        fontSize = 43
+      }
+      if(longestWord < 11){
+        fontSize = 35
+      }
+      else if(longestWord < 14){
+        fontSize = 27
+      }
+      else if(longestWord < 16){
+        fontSize = 25
+      }
+      else if(longestWord < 18){
+        fontSize = 22
+      }
+      else if(longestWord < 21){
+        fontSize = 18
+      }
+      else if(longestWord < 24){
+        fontSize = 17
+      }
+      else if(longestWord < 28){
+        fontSize = 14
+      }
+      else if(longestWord >= 28){
+        fontSize = 12
+      }
+  
+    }
 
     if (getOpen) {
         return (
