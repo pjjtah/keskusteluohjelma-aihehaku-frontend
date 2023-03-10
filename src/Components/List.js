@@ -1,6 +1,5 @@
 import { React, useState } from 'react'
 import Button from "react-bootstrap/Button";
-import { hyphenateSync } from "hyphen/fi";
 
 function List(props) {
 
@@ -48,7 +47,8 @@ function List(props) {
 
     str = str.replace("/", "/ ");
     str = str.replace("-", "- ");
-    var strSplit = str.split(' ');
+
+    var strSplit = str.split(/\s+/)
 
     var longestWord = strSplit.sort(function(a, b) { 
       return b.length - a.length;
@@ -93,12 +93,6 @@ function List(props) {
 
   }
 
-  const refine = (text) => {
-    text = text.replace("-", "- ");
-    text = text.replace("/", "/ ")
-    return text;
-  }
-
   if (filteredData.length !== 0) {
     filteredData.forEach(function(element, index, array){
         if(element[1].includes("-")){
@@ -119,7 +113,7 @@ function List(props) {
             {items.map((item) => (
               <li key={items.indexOf(item)} className="textBox">
                 <a href={item[2]} target="_blank" onClick={(e) => openVideo(item[[2]])} rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
-                    {hyphenateSync(refine(item[1]), {minWordLength: 10})}
+                    {item[1]}
                 </a>
               </li>
             ))}

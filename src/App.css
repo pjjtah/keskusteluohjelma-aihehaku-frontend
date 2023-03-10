@@ -188,7 +188,21 @@ li a {
   padding: 50px 25px 0px 25px;
   text-decoration: none;
   text-transform: uppercase;
+  white-space: pre-wrap
 }
+
+.clipTitle {
+  width: 80%;
+  height: 100%;
+  max-width: 450px;
+  color: black;
+  display: inline-block;
+  padding: 50px 25px 0px 25px;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: pre-wrap
+}
+
 
 li a:hover {
   color: var(--gray-hover);
@@ -303,6 +317,7 @@ button:hover {
   font-family: "kaarle";
   text-transform: uppercase;
   list-style-type : none;
+  padding: 10px 10px 14px 10px;
 }
 
 
@@ -411,20 +426,24 @@ button:hover {
     
   }
 
+  .react-autosuggest__suggestions-container--open {
+    width: 200px;
+
+  }
+
 
   .react-autosuggest__input {
     background-color: black;
     color: white;
     font-size: 25px;
-    width: 220px;
-    height: auto;
+    width: 200px;
     cursor: pointer;
     align-self: auto;
     text-align: left;
     font-family: "kaarle";
     text-transform: uppercase;
     list-style-type : none;
-    border: 10px solid black;
+    padding: 10px 10px 14px 10px;
   }
 
   
@@ -432,12 +451,12 @@ button:hover {
     margin: 0;
     padding: 0;
     list-style-type: none;
-    width: 360px;
+    width: 120px;
   }
   
   .react-autosuggest__suggestion {
     cursor: pointer;
-    width: 160px;
+    width: 120px;
     height: fit-content;
     font-size: 20px;
     color: white;
@@ -456,9 +475,9 @@ button:hover {
 
   .searchButton {
     border-bottom: 13px solid rgb(58, 194, 58);
-    width: 50px;
+    width: 90px;
     padding: 1px;
-    font-size: 20px;
+    font-size: 25px;
     text-align: center;
   }
 
@@ -509,12 +528,12 @@ button:hover {
 
 
   .react-autosuggest__input {
-    font-size: 20px;
+    font-size: 25px;
     width: 100%;
     display: inline-block;
     text-align: left;
     text-transform: uppercase;
-    height: 50px;
+    padding: 10px 10px 14px 10px;
   }
 
   .react-autosuggest__suggestions-container--open {
@@ -560,7 +579,7 @@ button:hover {
 
   .searchButton {
     width: 30%;
-    font-size: 20px;
+    font-size: 25px;
     justify-content: center;
     margin: 0px;
     margin-left: 10px;
