@@ -1,4 +1,5 @@
 import { React, useState } from 'react'
+import igLink from "../iglinkki.jpg"
 import Button from "react-bootstrap/Button";
 
 function List(props) {
@@ -112,9 +113,15 @@ function List(props) {
           <ul key={items}>
             {items.map((item) => (
               <li key={items.indexOf(item)} className="textBox">
+                {item[0] === "ig" ?
+                 <a href={item[2]} target="_blank" onClick={(e) => openVideo(item[[2]])} rel="noreferrer" onChange={getFontSize(item[1])} style={{ padding: "0px", width: "100%", backgroundColor: "black"}}>
+                  <img src={igLink}></img>
+               </a> :
                 <a href={item[2]} target="_blank" onClick={(e) => openVideo(item[[2]])} rel="noreferrer" onChange={getFontSize(item[1])} style={{ fontSize: `${fontSize}px` }}>
                     {item[1]}
-                </a>
+                  </a>
+                }
+
               </li>
             ))}
           </ul>
